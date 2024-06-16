@@ -77,11 +77,11 @@ exports.migrate = async function (sqlFile, logFile) {
 async function isSelfReferencing(dbName, tableName) {
   let foreignKeys = await DBManager.findFK(dbName, tableName);
   let referencedTables = foreignKeys.map((row) => row.REFERENCED_TABLE_NAME);
-  referencedTables.forEach((referencedTable) => {
+  for (const referencedTable of referencedTables) {
     if (referencedTable === tableName) {
       return true;
     }
-  });
+  }
   return false;
 }
 
