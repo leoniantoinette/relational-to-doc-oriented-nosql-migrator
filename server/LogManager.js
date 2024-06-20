@@ -13,7 +13,7 @@ exports.processLog = function (logContent, database) {
 function preProcessLog(logContent) {
   // yymmdd hh:mm:ss thread_id command_type query_body
   const logPattern =
-    /\d{6}\s*\d{1,2}:\d{2}:\d{2}\s*\d+\s*(\w+)\s*(.+?)(?=\d{6}\s*\d{1,2}:\d{2}:\d{2}\s*\d+\s*\w+|$)/gs;
+    /(?:\d{6}\s*\d{1,2}:\d{2}:\d{2}\s*)?\d+\s*(Connect|Quit|Query|Init\sDB|Sleep|Shutdown|Create\sDB|Drop\sDB|Refresh|Statistics|Processlist|Kill|Change\suser|Binlog\sDump|Table\sDump|Field\sList|Execute|Prepare|Close\sstmt|Reset\sstmt|Fetch|Daemon)\s*(.+?)(?=(?:\d{6}\s*\d{1,2}:\d{2}:\d{2}\s*)?\d+\s*(?:Connect|Quit|Query|Init\sDB|Sleep|Shutdown|Create\sDB|Drop\sDB|Refresh|Statistics|Processlist|Kill|Change\suser|Binlog\sDump|Table\sDump|Field\sList|Execute|Prepare|Close\sstmt|Reset\sstmt|Fetch|Daemon)|$)/gs;
   var result = [];
 
   var match;
@@ -23,7 +23,9 @@ function preProcessLog(logContent) {
 
     if (commandType == "Query") {
       queryBody = queryBody.replace(/\s+/g, " ").trim();
-      result.push(queryBody);
+      if (/^(select|insert|update|delete|create)\b/i.test(queryBody)) {
+        result.push(queryBody);
+      }
     }
   }
 
