@@ -2,6 +2,7 @@ const mysql = require("mysql");
 const path = require("path");
 const fs = require("fs");
 const Importer = require("mysql-import");
+const moment = require("moment-timezone");
 require("dotenv").config();
 
 class DBManager {
@@ -256,7 +257,17 @@ class DBManager {
         });
       });
 
-      return rows.map((row) => ({ ...row }));
+      // adjust date to system timezone
+      const adjustedRows = rows.map((row) => {
+        Object.keys(row).forEach((key) => {
+          if (this.isDateField(row[key])) {
+            row[key] = moment(row[key]).tz("Asia/Bangkok").format("YYYY-MM-DD");
+          }
+        });
+        return { ...row };
+      });
+
+      return adjustedRows;
     } catch (error) {
       throw error;
     }
@@ -280,6 +291,13 @@ class DBManager {
     } catch (error) {
       throw error;
     }
+  }
+
+  isDateField(value) {
+    return (
+      value instanceof Date ||
+      (typeof value === "string" && !isNaN(Date.parse(value)))
+    );
   }
 }
 
