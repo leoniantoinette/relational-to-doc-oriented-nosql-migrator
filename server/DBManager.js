@@ -287,7 +287,17 @@ class DBManager {
         });
       });
 
-      return rows.map((row) => ({ ...row }));
+      // adjust date to system timezone
+      const adjustedRows = rows.map((row) => {
+        Object.keys(row).forEach((key) => {
+          if (this.isDateField(row[key])) {
+            row[key] = moment(row[key]).tz("Asia/Bangkok").format("YYYY-MM-DD");
+          }
+        });
+        return { ...row };
+      });
+
+      return adjustedRows;
     } catch (error) {
       throw error;
     }
