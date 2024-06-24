@@ -142,7 +142,7 @@ class DBManager {
   async getTableColumns(databaseName) {
     try {
       const query = `
-      SELECT TABLE_NAME, GROUP_CONCAT(COLUMN_NAME SEPARATOR ', ') AS table_columns
+      SELECT TABLE_NAME, GROUP_CONCAT(COLUMN_NAME ORDER BY ORDINAL_POSITION SEPARATOR ', ') AS table_columns
       FROM INFORMATION_SCHEMA.COLUMNS
       WHERE TABLE_SCHEMA = '${databaseName}'
       GROUP BY TABLE_NAME;
