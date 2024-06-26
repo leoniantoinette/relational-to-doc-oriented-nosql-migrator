@@ -110,7 +110,7 @@ class DBManager {
   async getTableData(databaseName) {
     try {
       const query = `
-      SELECT t.TABLE_NAME, t.TABLE_ROWS, COUNT(k.REFERENCED_TABLE_NAME) AS num_foreign_keys,
+      SELECT t.TABLE_NAME, COUNT(k.REFERENCED_TABLE_NAME) AS num_foreign_keys,
         CASE
           WHEN EXISTS (SELECT * FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = t.TABLE_SCHEMA AND REFERENCED_TABLE_NAME = t.TABLE_NAME) 
           THEN 'Referenced by other tables' 
@@ -134,6 +134,29 @@ class DBManager {
       });
 
       return rows.map((row) => ({ ...row }));
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getTableRows(tableName) {
+    try {
+      const query = `
+      SELECT COUNT(*) AS num_rows
+      FROM ${tableName};
+      `;
+
+      const rows = await new Promise((resolve, reject) => {
+        this.conn.query(query, (err, rows) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
+      });
+
+      return rows[0].num_rows;
     } catch (error) {
       throw error;
     }

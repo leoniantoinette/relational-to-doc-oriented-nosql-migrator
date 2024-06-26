@@ -24,15 +24,17 @@ exports.migrate = async function (sqlFile, logFile) {
 
   // get list table and its data
   const tableData = await DBManager.getTableData(databaseName);
-  tableData.forEach((row) => {
+  for (const row of tableData) {
+    // get num of rows
+    const numOfRows = await DBManager.getTableRows(row.TABLE_NAME);
     const table = new Table(
       row.TABLE_NAME,
-      row.TABLE_ROWS,
+      numOfRows,
       row.num_foreign_keys,
       row.reference_status == "Referenced by other tables" ? true : false
     );
     relationalDB.addTable(table);
-  });
+  }
 
   // get columns for each table
   const tableColumns = await DBManager.getTableColumns(databaseName);
