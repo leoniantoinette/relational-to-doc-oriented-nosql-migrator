@@ -186,7 +186,12 @@ async function oneWayEmbedding(databaseName, noSQLDatabase, embeddedTable) {
 }
 
 // embeddedTable di-embed ke 2 collections
-async function twoWayEmbedding(databaseName, noSQLDatabase, embeddedTable) {
+async function twoWayEmbedding(
+  databaseName,
+  relationalDB,
+  noSQLDatabase,
+  embeddedTable
+) {
   var foreignKeys = await DBManager.findFK(databaseName, embeddedTable.name);
   var fkColumn1 = foreignKeys[0].COLUMN_NAME;
   var referencedTable1 = foreignKeys[0].REFERENCED_TABLE_NAME;
@@ -197,26 +202,23 @@ async function twoWayEmbedding(databaseName, noSQLDatabase, embeddedTable) {
 
   var collection1 = noSQLDatabase.getCollection(referencedTable1);
   var collection2 = noSQLDatabase.getCollection(referencedTable2);
+  var table1 = relationalDB.getTable(referencedTable1);
+  var table2 = relationalDB.getTable(referencedTable2);
 
   var attributes1 = [];
   var attributes2 = [];
-  // TODO : keknya ada better way kek filter drpd foreach
-  embeddedTable.columns.forEach((column) => {
-    if (column != fkColumn1 && column != fkColumn2) {
-      attributes1.push(column);
-      attributes2.push(column);
-    }
-  });
-  collection1.attributes.forEach((attr) => {
-    if (attr != referencedColumn1) {
-      attributes2.push(attr);
-    }
-  });
-  collection2.attributes.forEach((attr) => {
-    if (attr != referencedColumn2) {
-      attributes1.push(attr);
-    }
-  });
+  const filteredColumns = embeddedTable.columns.filter(
+    (column) => column !== fkColumn1 && column !== fkColumn2
+  );
+  attributes1 = attributes1.concat(filteredColumns);
+  attributes2 = attributes2.concat(filteredColumns);
+
+  attributes2 = attributes2.concat(
+    table1.columns.filter((col) => col !== referencedColumn1)
+  );
+  attributes1 = attributes1.concat(
+    table2.columns.filter((col) => col !== referencedColumn2)
+  );
 
   let embeddedCollection1 = new Collection(embeddedTable.name, attributes1);
   let embeddedCollection2 = new Collection(embeddedTable.name, attributes2);
@@ -286,7 +288,12 @@ async function convertSchema(relationalDB) {
           } else {
             if (currentTable.numOfForeignKeys == 2) {
               // two way embedding
-              await twoWayEmbedding(relationalDB.name, noSQLDB, currentTable);
+              await twoWayEmbedding(
+                relationalDB.name,
+                relationalDB,
+                noSQLDB,
+                currentTable
+              );
             } else {
               // one way embedding
               await oneWayEmbedding(relationalDB.name, noSQLDB, currentTable);
