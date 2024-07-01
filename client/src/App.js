@@ -13,6 +13,7 @@ import {
   Text,
   Flex,
   FormHelperText,
+  Select,
 } from "@chakra-ui/react";
 import { DownloadIcon } from "@chakra-ui/icons";
 import axios from "axios";
@@ -20,6 +21,7 @@ import RelationalTable from "./components/RelationalTable";
 import NoSqlCollection from "./components/NoSqlCollection";
 
 function App() {
+  const [dbType, setDbType] = useState("");
   const [sqlFile, setSqlFile] = useState(null);
   const [logFile, setLogFile] = useState(null);
   const [relationalTables, setRelationalTables] = useState([]);
@@ -53,6 +55,7 @@ function App() {
     const formData = new FormData();
     formData.append("sqlFile", sqlFile);
     formData.append("logFile", logFile);
+    formData.append("dbType", dbType);
 
     try {
       await axios
@@ -71,10 +74,17 @@ function App() {
       alert("Migration failed. Please try again.");
     } finally {
       setLoading(false);
+      setDbType("");
       setSqlFile(null);
       setLogFile(null);
       formData.forEach((_, key) => formData.delete(key));
     }
+  };
+
+  const handleDbTypeChange = (event) => {
+    const dbType = event.target.value;
+    setDbType(dbType);
+    console.log("Selected DB type:", dbType);
   };
 
   const handleSqlFileSelect = (event) => {
@@ -125,6 +135,20 @@ function App() {
         <Center>
           <Box mt={10} p={8} borderWidth="1px" borderRadius="lg" boxShadow="lg">
             <FormControl isRequired>
+              <FormLabel fontSize="lg" htmlFor="dbType">
+                Database Type
+              </FormLabel>
+              <Select
+                placeholder="Select database type"
+                value={dbType}
+                onChange={handleDbTypeChange}
+              >
+                <option value="mysql">MySQL</option>
+                <option value="postgresql">PostgreSQL</option>
+              </Select>
+            </FormControl>
+
+            <FormControl mt={6} isRequired>
               <FormLabel fontSize="lg" htmlFor="sqlFile">
                 SQL File
               </FormLabel>
