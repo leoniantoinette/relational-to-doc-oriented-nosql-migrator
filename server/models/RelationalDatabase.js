@@ -1,5 +1,6 @@
 class RelationalDatabase {
-  constructor(name) {
+  constructor(databaseType, name) {
+    this.databaseType = databaseType;
     this.name = name;
     this.tables = [];
     this.maf = 0;

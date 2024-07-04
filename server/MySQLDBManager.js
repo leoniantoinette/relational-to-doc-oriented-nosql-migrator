@@ -5,13 +5,13 @@ const Importer = require("mysql-import");
 const moment = require("moment-timezone");
 require("dotenv").config();
 
-class DBManager {
+class MySQLDBManager {
   constructor() {
     this.conn = mysql.createConnection({
-      host: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      port: process.env.DB_PORT,
+      host: process.env.MYSQL_DB_HOST,
+      user: process.env.MYSQL_DB_USER,
+      password: process.env.MYSQL_DB_PASSWORD,
+      port: process.env.MYSQL_DB_PORT,
     });
 
     this.conn.connect((err) => {
@@ -29,9 +29,9 @@ class DBManager {
       const dbName = await this.validateSqlFile(sqlFilePath);
 
       this.importer = new Importer({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
+        host: process.env.MYSQL_DB_HOST,
+        user: process.env.MYSQL_DB_USER,
+        password: process.env.MYSQL_DB_PASSWORD,
       });
       console.log("Connected with importer");
 
@@ -86,25 +86,6 @@ class DBManager {
     }
 
     return dbName;
-  }
-
-  async getTables() {
-    try {
-      const rows = await new Promise((resolve, reject) => {
-        this.conn.query(`SHOW TABLES`, (err, rows) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(rows);
-          }
-        });
-      });
-
-      const tables = rows.map((row) => Object.values(row)[0]);
-      return tables;
-    } catch (error) {
-      throw error;
-    }
   }
 
   async getTableData(databaseName) {
@@ -334,4 +315,4 @@ class DBManager {
   }
 }
 
-module.exports = new DBManager();
+module.exports = new MySQLDBManager();

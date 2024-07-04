@@ -37,11 +37,13 @@ app.post(
     { name: "logFile", maxCount: 1 },
   ]),
   async (req, res) => {
+    const dbType = req.body.dbType;
     const sqlFile = req.files["sqlFile"][0];
     const logFile = req.files["logFile"][0];
 
     try {
       const { tables, collections } = await DBMigration.migrate(
+        dbType,
         sqlFile,
         logFile
       );

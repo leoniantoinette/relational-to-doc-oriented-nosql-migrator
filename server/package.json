@@ -20,6 +20,7 @@
     "mysql": "^2.18.1",
     "mysql-import": "^5.0.26",
     "node-sql-parser": "^5.2.0",
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "pg": "^8.12.0"
   }
 }
