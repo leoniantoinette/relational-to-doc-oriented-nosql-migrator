@@ -1,7 +1,6 @@
 const mysql = require("mysql");
 const path = require("path");
 const fs = require("fs");
-const Importer = require("mysql-import");
 const moment = require("moment-timezone");
 require("dotenv").config();
 
@@ -12,6 +11,7 @@ class MySQLDBManager {
       user: process.env.MYSQL_DB_USER,
       password: process.env.MYSQL_DB_PASSWORD,
       port: process.env.MYSQL_DB_PORT,
+      multipleStatements: true,
     });
 
     this.conn.connect((err) => {
@@ -28,15 +28,12 @@ class MySQLDBManager {
       // validate the sql file
       const dbName = await this.validateSqlFile(sqlFilePath);
 
-      this.importer = new Importer({
-        host: process.env.MYSQL_DB_HOST,
-        user: process.env.MYSQL_DB_USER,
-        password: process.env.MYSQL_DB_PASSWORD,
-      });
-      console.log("Connected with importer");
+      // Read the SQL file
+      var sql = fs.readFileSync(sqlFilePath, "utf8");
 
-      // start the import process
-      await this.importer.import(sqlFilePath);
+      // Execute SQL file
+      await this.runQuery(sql);
+      console.log("SQL imported successfully");
 
       return dbName;
     } catch (error) {

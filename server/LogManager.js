@@ -1,10 +1,6 @@
 const { Parser } = require("node-sql-parser");
 const parser = new Parser();
 
-// const opt = {
-//   database: "MySQL",
-// };
-
 exports.processLog = function (logContent, database) {
   const queries = preProcessLog(logContent, database.databaseType);
   parseLog(queries, database);
@@ -67,7 +63,6 @@ function parseLog(queries, database) {
   }
 
   queries.forEach((query) => {
-    console.log("query", query);
     const tableList = parser.tableList(query, opt);
     countInfoWorkload(tableList, database);
   });

@@ -1,5 +1,4 @@
 const { Client } = require("pg");
-// const fs = require("fs").promises;
 const fs = require("fs");
 const moment = require("moment-timezone");
 require("dotenv").config();

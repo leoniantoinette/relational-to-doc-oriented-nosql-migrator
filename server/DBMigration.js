@@ -18,7 +18,6 @@ exports.migrate = async function (dbType, sqlFile, logFile) {
 
   switch (dbType) {
     case "mysql":
-      console.log("MYSQL");
       // import sql file
       const mySQLDatabaseName = await MySQLDBManager.importSqlFile(sqlFilePath);
 
@@ -74,7 +73,6 @@ exports.migrate = async function (dbType, sqlFile, logFile) {
       break;
 
     case "postgresql":
-      console.log("POSTGRES");
       // import sql file
       const postgresDatabaseName = await PostgresDBManager.importSqlFile(
         sqlFilePath
