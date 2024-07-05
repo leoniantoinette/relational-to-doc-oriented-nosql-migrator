@@ -403,7 +403,9 @@ async function convertSchema(relationalDB) {
           }
           if (currentTable.isReferenced && !useReferencing) {
             for (let i = 0; i < currentTable.referencingTables.length; i++) {
-              const refTable = currentTable.referencingTables[i];
+              const refTable = relationalDB.getTable(
+                currentTable.referencingTables[i]
+              );
               if (refTable.uaf > relationalDB.maf) {
                 useReferencing = true;
                 break;
