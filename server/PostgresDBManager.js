@@ -47,6 +47,9 @@ class PostgresDBManager {
       // Read the SQL file
       var sql = fs.readFileSync(sqlFilePath, "utf8");
 
+      // Remove DROP, CREATE database, and \c command if exist
+      sql = this.removeSpecialCommands(sql);
+
       // Execute SQL file
       await this.client.query(sql);
       console.log("SQL imported successfully");
@@ -56,6 +59,24 @@ class PostgresDBManager {
       console.error("Error importing SQL file:", error);
       throw error;
     }
+  }
+
+  removeSpecialCommands(sqlContent) {
+    const commandsToRemove = [
+      { pattern: /DROP\s+DATABASE\s+/i, replacement: "-- DROP DATABASE " },
+      {
+        pattern: /CREATE\s+DATABASE\s+/i,
+        replacement: "-- CREATE DATABASE ",
+      },
+      { pattern: /\\c\s+\w+/gi, replacement: "" },
+    ];
+
+    // Apply each command removal or modification
+    for (let command of commandsToRemove) {
+      sqlContent = sqlContent.replace(command.pattern, command.replacement);
+    }
+
+    return sqlContent;
   }
 
   async dropAndRecreateDatabase(dbName) {
