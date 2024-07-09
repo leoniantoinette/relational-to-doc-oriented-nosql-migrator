@@ -20,7 +20,7 @@ const transform = (collection) => {
 
   if (collection.embeddedCollections.length > 0) {
     collection.embeddedCollections.forEach((embeddedCollection) => {
-      document[embeddedCollection.name] = transform(embeddedCollection);
+      document[embeddedCollection.name] = [transform(embeddedCollection)];
     });
   }
 
