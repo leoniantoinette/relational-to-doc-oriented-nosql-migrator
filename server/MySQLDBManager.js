@@ -70,9 +70,10 @@ class MySQLDBManager {
     const sqlFileName = path.basename(sqlFilePath, ".sql");
     const content = fs.readFileSync(sqlFilePath, "utf8");
 
-    const hasDropDatabase = /^DROP\s+DATABASE\s+/i.test(content);
-
+    const hasDropDatabase = /DROP\s+DATABASE\s+/i.test(content);
+    const hasCreateDatabase = /CREATE\s+DATABASE\s+/i.test(content);
     const dbNameMatch = /USE\s+(\w+)\s*;/i.exec(content);
+
     let dbName = dbNameMatch ? dbNameMatch[1] : null;
     if (!dbName) {
       dbName = sqlFileName;
@@ -80,6 +81,14 @@ class MySQLDBManager {
 
     if (!hasDropDatabase) {
       await this.runQuery(`DROP DATABASE IF EXISTS ${dbName};`);
+    }
+
+    if (!hasCreateDatabase) {
+      await this.runQuery(`CREATE DATABASE ${dbName};`);
+    }
+
+    if (!dbNameMatch) {
+      await this.runQuery(`USE ${dbName};`);
     }
 
     return dbName;
