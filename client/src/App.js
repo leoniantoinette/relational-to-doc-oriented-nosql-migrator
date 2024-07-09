@@ -29,6 +29,8 @@ function App() {
   const [showResult, setShowResult] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   useEffect(() => {
     if (showResult) {
       // scroll to the result
@@ -59,7 +61,7 @@ function App() {
 
     try {
       await axios
-        .post("http://localhost:3001/migration", formData, {
+        .post(`${backendUrl}/migration`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -101,12 +103,9 @@ function App() {
 
   const handleDownload = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:3001/download/result",
-        {
-          responseType: "blob",
-        }
-      );
+      const response = await axios.get(`${backendUrl}/download/result`, {
+        responseType: "blob",
+      });
 
       const url = window.URL.createObjectURL(new Blob([response.data]));
 
