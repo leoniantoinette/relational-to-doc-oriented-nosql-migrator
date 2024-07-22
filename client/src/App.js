@@ -252,7 +252,7 @@ function App() {
                   textAlign="center"
                   mb={2}
                 >
-                  NoSQL Database
+                  Document-Oriented NoSQL Database
                 </Text>
                 <Box
                   bg="white"
