@@ -174,6 +174,58 @@ class MySQLDBManager {
     }
   }
 
+  async getPrimaryKeys(databaseName, tableName) {
+    try {
+      const query = `
+      SELECT COLUMN_NAME
+      FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+      WHERE TABLE_SCHEMA = '${databaseName}'
+      AND TABLE_NAME = '${tableName}'
+      AND CONSTRAINT_NAME = 'PRIMARY';
+      `;
+
+      const rows = await new Promise((resolve, reject) => {
+        this.conn.query(query, (err, rows) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
+      });
+
+      return rows.map((row) => row.COLUMN_NAME);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getForeignKeys(databaseName, tableName) {
+    try {
+      const query = `
+      SELECT COLUMN_NAME as column_name, REFERENCED_TABLE_NAME as referenced_table_name, REFERENCED_COLUMN_NAME as referenced_column_name
+      FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+      WHERE TABLE_SCHEMA = '${databaseName}'
+      AND TABLE_NAME = '${tableName}'
+      AND REFERENCED_TABLE_NAME IS NOT NULL;
+      `;
+
+      const rows = await new Promise((resolve, reject) => {
+        this.conn.query(query, (err, rows) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
+      });
+
+      return rows.map((row) => ({ ...row }));
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getReferenceInfo(databaseName) {
     try {
       const query = `

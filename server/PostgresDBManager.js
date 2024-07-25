@@ -210,6 +210,43 @@ class PostgresDBManager {
     }
   }
 
+  async getPrimaryKeys(tableName) {
+    try {
+      const query = `
+      SELECT kcu.column_name
+      FROM information_schema.table_constraints tco
+      JOIN information_schema.key_column_usage kcu ON kcu.constraint_name = tco.constraint_name
+      WHERE tco.constraint_type = 'PRIMARY KEY'
+      AND kcu.table_schema = 'public'
+      AND kcu.table_name = '${tableName}';
+      `;
+
+      const res = await this.client.query(query);
+      return res.rows.map((row) => row.column_name);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getForeignKeys(tableName) {
+    try {
+      const query = `
+      SELECT kcu.column_name, ccu.table_name AS referenced_table_name, ccu.column_name AS referenced_column_name
+      FROM information_schema.key_column_usage kcu
+      JOIN information_schema.table_constraints tc ON kcu.constraint_name = tc.constraint_name
+      JOIN information_schema.constraint_column_usage ccu ON kcu.constraint_name = ccu.constraint_name
+      WHERE tc.constraint_type = 'FOREIGN KEY'
+      AND kcu.table_schema = 'public'
+      AND kcu.table_name = '${tableName}';
+      `;
+
+      const res = await this.client.query(query);
+      return res.rows;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getReferenceInfo() {
     try {
       const query = `

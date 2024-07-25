@@ -28,11 +28,27 @@ const RelationalTable = ({ data }) => {
             </Box>
 
             <Box flex={1} pl={2}>
-              {item.columns.map((column, columnIndex) => (
-                <Flex key={columnIndex}>
-                  <Text>{column}</Text>
-                </Flex>
-              ))}
+              {item.columns.map((column, columnIndex) => {
+                // check primary key
+                const isPrimaryKey = item.primaryKeys.includes(column);
+                // check foreign key
+                const foreignKey = item.foreignKeys.find(
+                  (fk) => fk.column_name === column
+                );
+                const foreignKeyLabel = foreignKey
+                  ? `(FK to ${foreignKey.referenced_table_name}.${foreignKey.referenced_column_name})`
+                  : "";
+
+                return (
+                  <Flex key={columnIndex} mb={1}>
+                    <Text>
+                      {column}
+                      {isPrimaryKey && " (PK)"}
+                      {foreignKeyLabel && ` ${foreignKeyLabel}`}
+                    </Text>
+                  </Flex>
+                );
+              })}
             </Box>
           </Flex>
 

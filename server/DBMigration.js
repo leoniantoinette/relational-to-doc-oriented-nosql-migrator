@@ -32,9 +32,21 @@ exports.migrate = async function (dbType, sqlFile, logFile) {
       for (const row of mySQLTableData) {
         // get num of rows
         const numOfRows = await MySQLDBManager.getTableRows(row.TABLE_NAME);
+        // get primary keys
+        const primaryKeys = await MySQLDBManager.getPrimaryKeys(
+          mySQLDatabaseName,
+          row.TABLE_NAME
+        );
+        // get foreign keys
+        const foreignKeys = await MySQLDBManager.getForeignKeys(
+          mySQLDatabaseName,
+          row.TABLE_NAME
+        );
         const table = new Table(
           row.TABLE_NAME,
           numOfRows,
+          primaryKeys,
+          foreignKeys,
           row.num_foreign_keys,
           row.reference_status == "Referenced by other tables" ? true : false
         );
@@ -86,9 +98,19 @@ exports.migrate = async function (dbType, sqlFile, logFile) {
       for (const row of postgresTableData) {
         // get num of rows
         const numOfRows = await PostgresDBManager.getTableRows(row.table_name);
+        // get primary keys
+        const primaryKeys = await PostgresDBManager.getPrimaryKeys(
+          row.table_name
+        );
+        // get foreign keys
+        const foreignKeys = await PostgresDBManager.getForeignKeys(
+          row.table_name
+        );
         const table = new Table(
           row.table_name,
           Number(numOfRows),
+          primaryKeys,
+          foreignKeys,
           Number(row.num_foreign_keys),
           row.reference_status == "Referenced by other tables" ? true : false
         );

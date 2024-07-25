@@ -63,8 +63,12 @@ function parseLog(queries, database) {
   }
 
   queries.forEach((query) => {
-    const tableList = parser.tableList(query, opt);
-    countInfoWorkload(tableList, database);
+    try {
+      const tableList = parser.tableList(query, opt);
+      countInfoWorkload(tableList, database);
+    } catch (err) {
+      console.error(`Error parsing query ${query}: ${err.message}`);
+    }
   });
 
   database.calculateMaf();

@@ -1,8 +1,17 @@
 class Table {
-  constructor(name, numOfRows, numOfForeignKeys, isReferenced) {
+  constructor(
+    name,
+    numOfRows,
+    primaryKeys,
+    foreignKeys,
+    numOfForeignKeys,
+    isReferenced
+  ) {
     this.name = name;
     this.numOfRows = numOfRows;
     this.columns = [];
+    this.primaryKeys = primaryKeys;
+    this.foreignKeys = foreignKeys;
     this.numOfForeignKeys = numOfForeignKeys;
     this.isReferenced = isReferenced;
     this.referencingTables = [];
