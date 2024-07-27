@@ -9,6 +9,7 @@ const Table = require("./models/Table");
 const NoSQLDatabase = require("./models/NoSQLDatabase");
 const Collection = require("./models/Collection");
 const Queue = require("./models/Queue");
+const ForeignKey = require("./models/ForeignKey");
 
 exports.migrate = async function (dbType, sqlFile, logFile) {
   const sqlFilePath = path.join(__dirname, "uploads", sqlFile.originalname);
@@ -42,11 +43,21 @@ exports.migrate = async function (dbType, sqlFile, logFile) {
           mySQLDatabaseName,
           row.TABLE_NAME
         );
+        fkList = [];
+        foreignKeys.forEach((fk) => {
+          const foreignKey = new ForeignKey(
+            fk.COLUMN_NAME,
+            fk.REFERENCED_TABLE_NAME,
+            fk.REFERENCED_COLUMN_NAME
+          );
+          fkList.push(foreignKey);
+        });
+
         const table = new Table(
           row.TABLE_NAME,
           numOfRows,
           primaryKeys,
-          foreignKeys,
+          fkList,
           row.num_foreign_keys,
           row.reference_status == "Referenced by other tables" ? true : false
         );
@@ -106,11 +117,21 @@ exports.migrate = async function (dbType, sqlFile, logFile) {
         const foreignKeys = await PostgresDBManager.getForeignKeys(
           row.table_name
         );
+        fkList = [];
+        foreignKeys.forEach((fk) => {
+          const foreignKey = new ForeignKey(
+            fk.column_name,
+            fk.referenced_table_name,
+            fk.referenced_column_name
+          );
+          fkList.push(foreignKey);
+        });
+
         const table = new Table(
           row.table_name,
           Number(numOfRows),
           primaryKeys,
-          foreignKeys,
+          fkList,
           Number(row.num_foreign_keys),
           row.reference_status == "Referenced by other tables" ? true : false
         );
@@ -149,7 +170,7 @@ exports.migrate = async function (dbType, sqlFile, logFile) {
   var noSQLDB = await convertSchema(relationalDB);
 
   // mapping data
-  var result = await mappingData(relationalDB.databaseType, noSQLDB);
+  var result = await mappingData(relationalDB, noSQLDB);
 
   const resultFilePath = path.join(__dirname, "results");
   await WriteToFile.writeToJsonArchive(result, resultFilePath);
@@ -160,19 +181,9 @@ exports.migrate = async function (dbType, sqlFile, logFile) {
   return { tables, collections };
 };
 
-async function isSelfReferencing(dbName, dbType, tableName) {
-  let foreignKeys;
-  if (dbType == "mysql") {
-    foreignKeys = await MySQLDBManager.findFK(dbName, tableName);
-  } else if (dbType == "postgresql") {
-    foreignKeys = await PostgresDBManager.findFK(tableName);
-  }
-
-  let referencedTables = foreignKeys.map(
-    (row) => row.REFERENCED_TABLE_NAME || row.referenced_table_name
-  );
-  for (const referencedTable of referencedTables) {
-    if (referencedTable === tableName) {
+async function isSelfReferencing(table) {
+  for (const foreignKey of table.foreignKeys) {
+    if (foreignKey.referencedTableName === table.name) {
       return true;
     }
   }
@@ -199,11 +210,7 @@ async function createTableQueue(relationalDB, tables) {
     // find self-referencing table with 1 fk
     for (const table of trackTables) {
       if (table.numOfForeignKeys === 1) {
-        let isSelfReferencingTable = await isSelfReferencing(
-          relationalDB.name,
-          relationalDB.databaseType,
-          table.name
-        );
+        let isSelfReferencingTable = await isSelfReferencing(table);
         if (isSelfReferencingTable) {
           queue.enqueue(table);
           evaluationQueue.enqueue(table);
@@ -229,25 +236,11 @@ async function createTableQueue(relationalDB, tables) {
             trackTables = trackTables.filter((t) => t !== refTable);
           } else {
             // check if all referenced table of referencing table have added to queue or is a self-referencing table
-            let foreignKeys;
-            if (relationalDB.databaseType == "mysql") {
-              foreignKeys = await MySQLDBManager.findFK(
-                relationalDB.name,
-                refTable.name
-              );
-            } else if (relationalDB.databaseType == "postgresql") {
-              foreignKeys = await PostgresDBManager.findFK(refTable.name);
-            }
-
-            let referencedTables = foreignKeys.map(
-              (row) => row.REFERENCED_TABLE_NAME || row.referenced_table_name
-            );
             let isAdded = true;
-
-            referencedTables.forEach((referencedTable) => {
+            refTable.foreignKeys.forEach((fk) => {
               if (
-                !queue.containsTable(referencedTable) &&
-                referencedTable !== refTable.name
+                !queue.containsTable(fk.referencedTableName) &&
+                fk.referencedTableName !== refTable.name
               ) {
                 isAdded = false;
               }
@@ -269,26 +262,9 @@ async function createTableQueue(relationalDB, tables) {
 }
 
 // embeddedTable di-embed ke collection
-async function oneWayEmbedding(
-  databaseName,
-  databaseType,
-  noSQLDatabase,
-  embeddedTable
-) {
-  var foreignKeys;
-  if (databaseType == "mysql") {
-    var foreignKeys = await MySQLDBManager.findFK(
-      databaseName,
-      embeddedTable.name
-    );
-  } else if (databaseType == "postgresql") {
-    var foreignKeys = await PostgresDBManager.findFK(embeddedTable.name);
-  }
-
-  var fkColumn = foreignKeys[0].COLUMN_NAME || foreignKeys[0].column_name;
-  var referencedTable =
-    foreignKeys[0].REFERENCED_TABLE_NAME ||
-    foreignKeys[0].referenced_table_name;
+async function oneWayEmbedding(noSQLDatabase, embeddedTable) {
+  var fkColumn = embeddedTable.foreignKeys[0].columnName;
+  var referencedTable = embeddedTable.foreignKeys[0].referencedTableName;
 
   var collection = noSQLDatabase.getCollection(referencedTable);
 
@@ -304,33 +280,13 @@ async function oneWayEmbedding(
 }
 
 // embeddedTable di-embed ke 2 collections
-async function twoWayEmbedding(
-  databaseName,
-  relationalDB,
-  noSQLDatabase,
-  embeddedTable
-) {
-  var foreignKeys;
-  if (relationalDB.databaseType == "mysql") {
-    foreignKeys = await MySQLDBManager.findFK(databaseName, embeddedTable.name);
-  } else if (relationalDB.databaseType == "postgresql") {
-    foreignKeys = await PostgresDBManager.findFK(embeddedTable.name);
-  }
-
-  var fkColumn1 = foreignKeys[0].COLUMN_NAME || foreignKeys[0].column_name;
-  var referencedTable1 =
-    foreignKeys[0].REFERENCED_TABLE_NAME ||
-    foreignKeys[0].referenced_table_name;
-  var referencedColumn1 =
-    foreignKeys[0].REFERENCED_COLUMN_NAME ||
-    foreignKeys[0].referenced_column_name;
-  var fkColumn2 = foreignKeys[1].COLUMN_NAME || foreignKeys[1].column_name;
-  var referencedTable2 =
-    foreignKeys[1].REFERENCED_TABLE_NAME ||
-    foreignKeys[1].referenced_table_name;
-  var referencedColumn2 =
-    foreignKeys[1].REFERENCED_COLUMN_NAME ||
-    foreignKeys[1].referenced_column_name;
+async function twoWayEmbedding(relationalDB, noSQLDatabase, embeddedTable) {
+  var fkColumn1 = embeddedTable.foreignKeys[0].columnName;
+  var referencedTable1 = embeddedTable.foreignKeys[0].referencedTableName;
+  var referencedColumn1 = embeddedTable.foreignKeys[0].referencedColumnName;
+  var fkColumn2 = embeddedTable.foreignKeys[1].columnName;
+  var referencedTable2 = embeddedTable.foreignKeys[1].referencedTableName;
+  var referencedColumn2 = embeddedTable.foreignKeys[1].referencedColumnName;
 
   var collection1 = noSQLDatabase.getCollection(referencedTable1);
   var collection2 = noSQLDatabase.getCollection(referencedTable2);
@@ -360,22 +316,8 @@ async function twoWayEmbedding(
   collection2.addEmbeddedCollection(embeddedCollection2);
 }
 
-async function referencing(
-  databaseName,
-  databaseType,
-  noSQLDatabase,
-  referringTable
-) {
-  var foreignKeys;
-  if (databaseType == "mysql") {
-    foreignKeys = await MySQLDBManager.findFK(
-      databaseName,
-      referringTable.name
-    );
-  } else if (databaseType == "postgresql") {
-    foreignKeys = await PostgresDBManager.findFK(referringTable.name);
-  }
-  var fkColumn = foreignKeys.map((row) => row.COLUMN_NAME || row.column_name);
+async function referencing(noSQLDatabase, referringTable) {
+  var fkColumn = referringTable.foreignKeys.map((fk) => fk.columnName);
 
   var attributes = [];
   referringTable.columns.forEach((column) => {
@@ -404,19 +346,10 @@ async function convertSchema(relationalDB) {
       noSQLDB.addCollection(collection);
     } else {
       // check if table is a self referencing table
-      let isSelfReferencingTable = await isSelfReferencing(
-        relationalDB.name,
-        relationalDB.databaseType,
-        currentTable.name
-      );
+      let isSelfReferencingTable = await isSelfReferencing(currentTable);
       if (isSelfReferencingTable) {
         // referencing
-        await referencing(
-          relationalDB.name,
-          relationalDB.databaseType,
-          noSQLDB,
-          currentTable
-        );
+        await referencing(noSQLDB, currentTable);
       } else {
         if (currentTable.numOfForeignKeys <= 2) {
           let useReferencing = false;
@@ -437,39 +370,19 @@ async function convertSchema(relationalDB) {
 
           if (useReferencing) {
             // referencing
-            await referencing(
-              relationalDB.name,
-              relationalDB.databaseType,
-              noSQLDB,
-              currentTable
-            );
+            await referencing(noSQLDB, currentTable);
           } else {
             if (currentTable.numOfForeignKeys == 2) {
               // two way embedding
-              await twoWayEmbedding(
-                relationalDB.name,
-                relationalDB,
-                noSQLDB,
-                currentTable
-              );
+              await twoWayEmbedding(relationalDB, noSQLDB, currentTable);
             } else {
               // one way embedding
-              await oneWayEmbedding(
-                relationalDB.name,
-                relationalDB.databaseType,
-                noSQLDB,
-                currentTable
-              );
+              await oneWayEmbedding(noSQLDB, currentTable);
             }
           }
         } else {
           // referencing
-          await referencing(
-            relationalDB.name,
-            relationalDB.databaseType,
-            noSQLDB,
-            currentTable
-          );
+          await referencing(noSQLDB, currentTable);
         }
       }
     }
@@ -478,17 +391,11 @@ async function convertSchema(relationalDB) {
   return noSQLDB;
 }
 
-async function mappingData(databaseType, noSQLDB) {
+async function mappingData(relationalDB, noSQLDB) {
   var output = [];
 
   for (const collection of noSQLDB.collections) {
-    var collectionData = await mapping(
-      noSQLDB.name,
-      databaseType,
-      null,
-      null,
-      collection
-    );
+    var collectionData = await mapping(relationalDB, null, null, collection);
     output.push(collectionData);
   }
 
@@ -496,8 +403,7 @@ async function mappingData(databaseType, noSQLDB) {
 }
 
 async function mapping(
-  databaseName,
-  databaseType,
+  relationalDB,
   prevCollectionName,
   prevCollectionData,
   collection
@@ -505,9 +411,9 @@ async function mapping(
   var output = [];
   var documents = [];
   var datas;
-  if (databaseType == "mysql") {
+  if (relationalDB.databaseType == "mysql") {
     datas = await MySQLDBManager.getAllDatas(collection.name);
-  } else if (databaseType == "postgresql") {
+  } else if (relationalDB.databaseType == "postgresql") {
     datas = await PostgresDBManager.getAllDatas(collection.name);
   }
 
@@ -516,23 +422,14 @@ async function mapping(
     isRootBlock = false;
 
     // get foreign key info
-    var foreignKeys;
-    if (databaseType == "mysql") {
-      var foreignKeys = await MySQLDBManager.findCertainFK(
-        databaseName,
-        collection.name,
-        prevCollectionName
-      );
-    } else if (databaseType == "postgresql") {
-      var foreignKeys = await PostgresDBManager.findCertainFK(
-        collection.name,
-        prevCollectionName
-      );
-    }
-    var fkColumn = foreignKeys[0].COLUMN_NAME || foreignKeys[0].column_name;
-    var referencedColumn =
-      foreignKeys[0].REFERENCED_COLUMN_NAME ||
-      foreignKeys[0].referenced_column_name;
+    const table = relationalDB.getTable(collection.name);
+    var fkColumn, referencedColumn;
+    table.foreignKeys.forEach((fk) => {
+      if (fk.referencedTableName == prevCollectionName) {
+        fkColumn = fk.columnName;
+        referencedColumn = fk.referencedColumnName;
+      }
+    });
   }
 
   // loop for each data
@@ -564,14 +461,13 @@ async function mapping(
         if (collection.hasEmbeddedAttribute()) {
           // find data from collection that matched the foreign key
           documents = await mapEmbeddedAttributes(
-            databaseName,
-            databaseType,
+            relationalDB,
             collection,
             data,
             document
           );
 
-          // add to output here
+          // add to output
           documents.forEach((doc) => {
             // check if the object is empty
             if (!isObjectEmpty(doc)) {
@@ -585,8 +481,7 @@ async function mapping(
     if (!isObjectEmpty(document) && !collection.hasEmbeddedAttribute()) {
       // check whether the collection has embedded collections
       document = await mapEmbeddedCollections(
-        databaseName,
-        databaseType,
+        relationalDB,
         collection,
         data,
         document
@@ -603,8 +498,7 @@ async function mapping(
 }
 
 async function mapEmbeddedCollections(
-  databaseName,
-  databaseType,
+  relationalDB,
   collection,
   data,
   document
@@ -612,8 +506,7 @@ async function mapEmbeddedCollections(
   if (collection.embeddedCollections.length > 0) {
     for (const embeddedCollection of collection.embeddedCollections) {
       const res = await mapping(
-        databaseName,
-        databaseType,
+        relationalDB,
         collection.name,
         data,
         embeddedCollection
@@ -624,42 +517,29 @@ async function mapEmbeddedCollections(
       }
     }
   }
+
   return document;
 }
 
-async function mapEmbeddedAttributes(
-  databaseName,
-  databaseType,
-  collection,
-  data,
-  document
-) {
-  if (databaseType == "mysql") {
-    var foreignKeys = await MySQLDBManager.findCertainFK(
-      databaseName,
-      collection.name,
-      collection.embeddedAttributesFrom
-    );
-  } else if (databaseType == "postgresql") {
-    var foreignKeys = await PostgresDBManager.findCertainFK(
-      collection.name,
-      collection.embeddedAttributesFrom
-    );
-  }
-  var fkColumn = foreignKeys[0].COLUMN_NAME || foreignKeys[0].column_name;
-  var referencedColumn =
-    foreignKeys[0].REFERENCED_COLUMN_NAME ||
-    foreignKeys[0].referenced_column_name;
+async function mapEmbeddedAttributes(relationalDB, collection, data, document) {
+  const table = relationalDB.getTable(collection.name);
+  var fkColumn, referencedColumn;
+  table.foreignKeys.forEach((fk) => {
+    if (fk.referencedTableName == collection.embeddedAttributesFrom) {
+      fkColumn = fk.columnName;
+      referencedColumn = fk.referencedColumnName;
+    }
+  });
 
   // find embedded attributes data that matched the fk
   var embeddedDatas;
-  if (databaseType == "mysql") {
+  if (relationalDB.databaseType == "mysql") {
     embeddedDatas = await MySQLDBManager.getSpecificDatas(
       collection.embeddedAttributesFrom,
       referencedColumn,
       data[fkColumn]
     );
-  } else if (databaseType == "postgresql") {
+  } else if (relationalDB.databaseType == "postgresql") {
     embeddedDatas = await PostgresDBManager.getSpecificDatas(
       collection.embeddedAttributesFrom,
       referencedColumn,
@@ -670,8 +550,7 @@ async function mapEmbeddedAttributes(
   var output = [];
 
   document = await mapEmbeddedCollections(
-    databaseName,
-    databaseType,
+    relationalDB,
     collection,
     data,
     document

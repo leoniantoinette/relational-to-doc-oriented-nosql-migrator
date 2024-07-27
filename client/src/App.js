@@ -47,6 +47,11 @@ function App() {
     event.preventDefault();
     setShowResult(false);
 
+    if (!dbType) {
+      alert("Please fill database type");
+      return;
+    }
+
     if (!sqlFile || !logFile) {
       alert("Please upload all files");
       return;

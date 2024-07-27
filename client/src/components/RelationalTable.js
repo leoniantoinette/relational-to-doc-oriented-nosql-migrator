@@ -33,10 +33,10 @@ const RelationalTable = ({ data }) => {
                 const isPrimaryKey = item.primaryKeys.includes(column);
                 // check foreign key
                 const foreignKey = item.foreignKeys.find(
-                  (fk) => fk.column_name === column
+                  (fk) => fk.columnName === column
                 );
                 const foreignKeyLabel = foreignKey
-                  ? `(FK to ${foreignKey.referenced_table_name}.${foreignKey.referenced_column_name})`
+                  ? `(FK to ${foreignKey.referencedTableName}.${foreignKey.referencedColumnName})`
                   : "";
 
                 return (

@@ -203,7 +203,7 @@ class MySQLDBManager {
   async getForeignKeys(databaseName, tableName) {
     try {
       const query = `
-      SELECT COLUMN_NAME as column_name, REFERENCED_TABLE_NAME as referenced_table_name, REFERENCED_COLUMN_NAME as referenced_column_name
+      SELECT COLUMN_NAME, REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME
       FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
       WHERE TABLE_SCHEMA = '${databaseName}'
       AND TABLE_NAME = '${tableName}'
@@ -233,60 +233,6 @@ class MySQLDBManager {
       FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE 
       WHERE TABLE_SCHEMA = '${databaseName}' AND REFERENCED_TABLE_NAME IS NOT NULL 
       GROUP BY REFERENCED_TABLE_NAME;
-      `;
-
-      const rows = await new Promise((resolve, reject) => {
-        this.conn.query(query, (err, rows) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(rows);
-          }
-        });
-      });
-
-      return rows.map((row) => ({ ...row }));
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async findFK(databaseName, tableName) {
-    try {
-      const query = `
-      SELECT COLUMN_NAME, REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME
-      FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE 
-      WHERE
-        TABLE_SCHEMA = '${databaseName}'
-        AND TABLE_NAME = '${tableName}'
-        AND REFERENCED_TABLE_NAME IS NOT NULL;
-      `;
-
-      const rows = await new Promise((resolve, reject) => {
-        this.conn.query(query, (err, rows) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(rows);
-          }
-        });
-      });
-
-      return rows.map((row) => ({ ...row }));
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async findCertainFK(databaseName, tableName, referencedTablename) {
-    try {
-      const query = `
-      SELECT COLUMN_NAME, REFERENCED_TABLE_NAME, REFERENCED_COLUMN_NAME
-      FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE 
-      WHERE
-        TABLE_SCHEMA = '${databaseName}'
-        AND TABLE_NAME = '${tableName}'
-        AND REFERENCED_TABLE_NAME = '${referencedTablename}';
       `;
 
       const rows = await new Promise((resolve, reject) => {
