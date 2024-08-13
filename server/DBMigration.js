@@ -411,9 +411,9 @@ async function mapping(
   var output = [];
   var documents = [];
   var datas;
-  if (relationalDB.databaseType == "mysql") {
+  if (relationalDB.rdbms == "mysql") {
     datas = await MySQLDBManager.getAllDatas(collection.name);
-  } else if (relationalDB.databaseType == "postgresql") {
+  } else if (relationalDB.rdbms == "postgresql") {
     datas = await PostgresDBManager.getAllDatas(collection.name);
   }
 
@@ -533,13 +533,13 @@ async function mapEmbeddedAttributes(relationalDB, collection, data, document) {
 
   // find embedded attributes data that matched the fk
   var embeddedDatas;
-  if (relationalDB.databaseType == "mysql") {
+  if (relationalDB.rdbms == "mysql") {
     embeddedDatas = await MySQLDBManager.getSpecificDatas(
       collection.embeddedAttributesFrom,
       referencedColumn,
       data[fkColumn]
     );
-  } else if (relationalDB.databaseType == "postgresql") {
+  } else if (relationalDB.rdbms == "postgresql") {
     embeddedDatas = await PostgresDBManager.getSpecificDatas(
       collection.embeddedAttributesFrom,
       referencedColumn,

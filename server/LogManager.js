@@ -2,14 +2,14 @@ const { Parser } = require("node-sql-parser");
 const parser = new Parser();
 
 exports.processLog = function (logContent, database) {
-  const queries = preProcessLog(logContent, database.databaseType);
+  const queries = preProcessLog(logContent, database.rdbms);
   parseLog(queries, database);
 };
 
-function preProcessLog(logContent, databaseType) {
+function preProcessLog(logContent, rdbms) {
   var result = [];
 
-  switch (databaseType) {
+  switch (rdbms) {
     case "mysql":
       // yymmdd hh:mm:ss thread_id command_type query_body
       const mysqlLogPattern =
@@ -52,11 +52,11 @@ function preProcessLog(logContent, databaseType) {
 
 function parseLog(queries, database) {
   var opt;
-  if (database.databaseType == "mysql") {
+  if (database.rdbms == "mysql") {
     opt = {
       database: "MySQL",
     };
-  } else if (database.databaseType == "postgresql") {
+  } else if (database.rdbms == "postgresql") {
     opt = {
       database: "Postgresql",
     };

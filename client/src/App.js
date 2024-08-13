@@ -21,7 +21,7 @@ import RelationalTable from "./components/RelationalTable";
 import NoSqlCollection from "./components/NoSqlCollection";
 
 function App() {
-  const [dbType, setDbType] = useState("");
+  const [rdbms, setRdbms] = useState("");
   const [sqlFile, setSqlFile] = useState(null);
   const [logFile, setLogFile] = useState(null);
   const [relationalTables, setRelationalTables] = useState([]);
@@ -47,8 +47,8 @@ function App() {
     event.preventDefault();
     setShowResult(false);
 
-    if (!dbType) {
-      alert("Please fill database type");
+    if (!rdbms) {
+      alert("Please fill Relational DBMS");
       return;
     }
 
@@ -62,7 +62,7 @@ function App() {
     const formData = new FormData();
     formData.append("sqlFile", sqlFile);
     formData.append("logFile", logFile);
-    formData.append("dbType", dbType);
+    formData.append("rdbms", rdbms);
 
     try {
       await axios
@@ -81,17 +81,17 @@ function App() {
       alert("Migration failed. Please try again.");
     } finally {
       setLoading(false);
-      setDbType("");
+      setRdbms("");
       setSqlFile(null);
       setLogFile(null);
       formData.forEach((_, key) => formData.delete(key));
     }
   };
 
-  const handleDbTypeChange = (event) => {
-    const dbType = event.target.value;
-    setDbType(dbType);
-    console.log("Selected DB type:", dbType);
+  const handleRdbmsChange = (event) => {
+    const rdbms = event.target.value;
+    setRdbms(rdbms);
+    console.log("Selected RDBMS:", rdbms);
   };
 
   const handleSqlFileSelect = (event) => {
@@ -139,13 +139,13 @@ function App() {
         <Center>
           <Box mt={10} p={8} borderWidth="1px" borderRadius="lg" boxShadow="lg">
             <FormControl isRequired>
-              <FormLabel fontSize="lg" htmlFor="dbType">
-                Database Type
+              <FormLabel fontSize="lg" htmlFor="rdbms">
+                Relational DBMS
               </FormLabel>
               <Select
-                placeholder="Select database type"
-                value={dbType}
-                onChange={handleDbTypeChange}
+                placeholder="Select RDBMS"
+                value={rdbms}
+                onChange={handleRdbmsChange}
               >
                 <option value="mysql">MySQL</option>
                 <option value="postgresql">PostgreSQL</option>
