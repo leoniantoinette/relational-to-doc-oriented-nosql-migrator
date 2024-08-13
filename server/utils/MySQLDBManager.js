@@ -2,10 +2,12 @@ const mysql = require("mysql");
 const path = require("path");
 const fs = require("fs");
 const moment = require("moment-timezone");
+const DBManager = require("./DBManager");
 require("dotenv").config();
 
-class MySQLDBManager {
+class MySQLDBManager extends DBManager {
   constructor() {
+    super();
     this.conn = mysql.createConnection({
       host: process.env.MYSQL_DB_HOST,
       user: process.env.MYSQL_DB_USER,
@@ -14,12 +16,30 @@ class MySQLDBManager {
       multipleStatements: true,
     });
 
+    this.connect();
+  }
+
+  connect() {
     this.conn.connect((err) => {
       if (err) {
         console.error("Mysql Database connection error:", err);
       } else {
         console.log("Connected to Mysql Database");
       }
+    });
+  }
+
+  async disconnect() {
+    return new Promise((resolve, reject) => {
+      this.conn.end((err) => {
+        if (err) {
+          console.error("Error disconnecting from MySQL:", err);
+          reject(err);
+        } else {
+          console.log("Disconnected from MySQL");
+          resolve();
+        }
+      });
     });
   }
 

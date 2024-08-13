@@ -1,10 +1,12 @@
 const { Client } = require("pg");
 const fs = require("fs");
 const moment = require("moment-timezone");
+const DBManager = require("./DBManager");
 require("dotenv").config();
 
-class PostgresDBManager {
+class PostgresDBManager extends DBManager {
   constructor() {
+    super();
     this.config = {
       host: process.env.POSTGRES_DB_HOST,
       user: process.env.POSTGRES_DB_USER,
