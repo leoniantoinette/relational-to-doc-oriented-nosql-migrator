@@ -1,0 +1,265 @@
+240619 15:23:57	   173 Connect	root@localhost on employees using TCP/IP
+		   173 Query	SET NAMES 'utf8mb4' COLLATE 'utf8mb4_general_ci'
+		   173 Query	SET NAMES utf8mb4
+		   173 Query	set autocommit=0
+		   173 Query	DELETE FROM project_assignments WHERE emp_no = 90 AND project_no = 90
+		   173 Query	SELECT project_no, project_name, dept_no, end_date FROM projects WHERE end_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 7 DAY
+240619 15:23:58	   173 Query	SELECT p.project_name, d.dept_name FROM projects p JOIN departments d ON p.dept_no = d.dept_no
+		   173 Query	UPDATE salaries SET salary = 56679 WHERE emp_no = 20 AND to_date = '2023-08-01'
+240619 15:26:58	   173 Query	DELETE FROM project_assignments WHERE emp_no = 88 AND project_no = 88
+240619 15:27:58	   173 Query	DELETE FROM projects WHERE project_no = 72
+240619 15:29:58	   173 Query	UPDATE project_assignments SET assigned_date = '2023-08-18' WHERE emp_no = 19 AND project_no = 9
+240619 15:31:59	   173 Query	UPDATE projects SET project_name = 'Alvarez Group' WHERE project_no = 18
+240619 15:32:58	   173 Query	DELETE FROM project_assignments WHERE emp_no = 68 AND project_no = 68
+240619 15:33:58	   173 Query	SELECT d.dept_name FROM departments d LEFT JOIN projects p ON d.dept_no = p.dept_no WHERE p.project_no IS NULL
+240619 15:35:58	   173 Query	DELETE FROM project_assignments WHERE project_no = 58
+240619 15:35:59	   173 Query	UPDATE projects SET start_date = '2024-09-10', end_date = '2024-09-10' WHERE project_no = 9
+240619 15:38:58	   173 Query	UPDATE dept_emp SET dept_no = 7 WHERE emp_no = 13 AND to_date = '2023-02-17'
+240619 15:38:59	   173 Query	SELECT emp_no, dept_no, assigned_date FROM project_assignments WHERE project_no = 10
+240619 15:40:00	   173 Query	UPDATE projects SET project_name = 'Knight, Marshall and Smith' WHERE project_no = 1
+240619 15:41:59	   173 Query	SELECT emp_no, dept_no, assigned_date FROM project_assignments WHERE project_no = 10
+240619 15:43:58	   173 Query	SELECT p.project_name, d.dept_name FROM projects p JOIN departments d ON p.dept_no = d.dept_no
+240619 15:44:01	   173 Query	SELECT p.project_no, p.project_name FROM projects p LEFT JOIN project_assignments pa ON p.project_no = pa.project_no WHERE pa.emp_no IS NULL AND p.end_date >= CURDATE()
+240619 15:44:59	   173 Query	SELECT emp_no, dept_no, assigned_date FROM project_assignments WHERE project_no = 15
+240619 15:47:59	   173 Query	SELECT project_no, dept_no, assigned_date FROM project_assignments WHERE emp_no = 4
+240619 15:48:01	   173 Query	UPDATE projects SET project_name = 'Rodriguez, Gutierrez and Phillips' WHERE project_no = 19
+240619 15:50:59	   173 Query	SELECT emp_no, dept_no, assigned_date FROM project_assignments WHERE project_no = 14
+240619 15:52:26	   173 Query	SELECT p.project_no, p.project_name FROM projects p LEFT JOIN project_assignments pa ON p.project_no = pa.project_no WHERE pa.emp_no IS NULL AND p.end_date >= CURDATE()
+240619 15:53:58	   173 Query	SELECT emp_no, title FROM titles WHERE to_date <= CURDATE()
+		   173 Query	UPDATE departments SET manager_emp_no = 12 WHERE dept_no = 13
+240619 15:54:00	   173 Query	DELETE FROM project_assignments WHERE project_no = 60
+240619 15:56:27	   173 Query	SELECT project_no, project_name, dept_no, end_date FROM projects WHERE end_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 7 DAY
+240619 15:57:01	   173 Query	DELETE FROM project_assignments WHERE project_no = 70
+240619 16:00:01	   173 Query	UPDATE project_assignments SET project_no = 19 WHERE emp_no = 17 AND dept_no = 19
+240619 16:00:27	   173 Query	UPDATE projects SET project_name = 'Hendricks, Smith and Gonzalez' WHERE project_no = 11
+240619 16:03:01	   173 Query	DELETE FROM project_assignments WHERE emp_no = 67 AND project_no = 67
+240619 16:03:59	   173 Query	SELECT e.first_name, e.last_name FROM employees e JOIN project_assignments pa ON e.emp_no = pa.emp_no WHERE pa.project_no = 6
+240619 16:04:28	   173 Query	UPDATE projects SET project_name = 'Shea, Parsons and Rubio' WHERE project_no = 8
+240619 16:06:02	   173 Query	UPDATE project_assignments SET project_no = 20 WHERE emp_no = 6 AND dept_no = 9
+240619 16:08:29	   173 Query	DELETE FROM projects WHERE project_no = 76
+240619 16:08:59	   173 Query	UPDATE departments SET manager_emp_no = 10 WHERE dept_no = 12
+240619 16:09:02	   173 Query	UPDATE project_assignments SET project_no = 1 WHERE emp_no = 3 AND dept_no = 11
+240619 16:12:02	   173 Query	DELETE FROM project_assignments WHERE project_no = 82
+240619 16:12:29	   173 Query	UPDATE projects SET start_date = '2023-05-12', end_date = '2023-05-12' WHERE project_no = 20
+240619 16:13:59	   173 Query	SELECT e.first_name, e.last_name FROM employees e LEFT JOIN project_assignments pa ON e.emp_no = pa.emp_no WHERE pa.emp_no IS NULL
+240619 16:15:03	   173 Query	UPDATE project_assignments SET assigned_date = '2023-09-18' WHERE emp_no = 11 AND project_no = 11
+240619 16:16:29	   173 Query	DELETE FROM projects WHERE project_no = 76
+240619 16:18:03	   173 Query	UPDATE project_assignments SET assigned_date = '2023-01-14' WHERE emp_no = 13 AND project_no = 9
+240619 16:20:30	   173 Query	UPDATE projects SET start_date = '2024-12-25', end_date = '2024-12-25' WHERE project_no = 1
+240619 16:21:04	   173 Query	UPDATE project_assignments SET assigned_date = '2023-10-07' WHERE emp_no = 18 AND project_no = 5
+240619 16:24:00	   173 Query	SELECT d.dept_name FROM departments d LEFT JOIN projects p ON d.dept_no = p.dept_no WHERE p.project_no IS NULL
+		   173 Query	UPDATE salaries SET to_date = '2024-09-21' WHERE emp_no = 4 AND to_date = '2024-09-21'
+240619 16:24:05	   173 Query	UPDATE project_assignments SET assigned_date = '2024-03-12' WHERE emp_no = 11 AND project_no = 5
+240619 16:24:30	   173 Query	UPDATE projects SET start_date = '2024-07-16', end_date = '2024-07-16' WHERE project_no = 11
+240619 16:27:05	   173 Query	INSERT INTO project_assignments (emp_no, dept_no, project_no, assigned_date) VALUES (10, 18, 17, '2023-03-02')
+240619 16:28:30	   173 Query	DELETE FROM projects WHERE project_no = 80
+240619 16:30:06	   173 Query	SELECT emp_no, dept_no, assigned_date FROM project_assignments WHERE project_no = 5
+240619 16:32:31	   173 Query	DELETE FROM projects WHERE project_no = 69
+240619 16:33:07	   173 Query	UPDATE project_assignments SET project_no = 18 WHERE emp_no = 11 AND dept_no = 9
+240619 16:34:01	   173 Query	SELECT emp_no, first_name, last_name, birth_date, gender, hire_date, manager_emp_no FROM employees WHERE emp_no = 1
+240619 16:36:08	   173 Query	UPDATE project_assignments SET project_no = 19 WHERE emp_no = 11 AND dept_no = 6
+240619 16:36:31	   173 Query	UPDATE projects SET end_date = '2023-08-16' WHERE project_no = 5
+240619 16:39:00	   173 Query	UPDATE employees SET manager_emp_no = 8 WHERE emp_no = 8
+240619 16:39:08	   173 Query	DELETE FROM project_assignments WHERE project_no = 80
+240619 16:40:32	   173 Query	UPDATE projects SET end_date = '2024-07-31' WHERE project_no = 8
+240619 16:42:09	   173 Query	DELETE FROM project_assignments WHERE project_no = 78
+240619 16:44:01	   173 Query	SELECT emp_no, salary FROM salaries WHERE to_date <= CURDATE()
+240619 16:44:32	   173 Query	UPDATE projects SET end_date = '2023-01-28' WHERE project_no = 8
+240619 16:45:09	   173 Query	UPDATE project_assignments SET assigned_date = '2023-08-04' WHERE emp_no = 7 AND project_no = 19
+240619 16:48:10	   173 Query	INSERT INTO project_assignments (emp_no, dept_no, project_no, assigned_date) VALUES (11, 16, 20, '2024-01-18')
+240619 16:48:33	   173 Query	UPDATE projects SET start_date = '2023-05-11', end_date = '2023-05-11' WHERE project_no = 8
+240619 16:51:10	   173 Query	UPDATE project_assignments SET project_no = 9 WHERE emp_no = 18 AND dept_no = 14
+240619 16:52:34	   173 Query	DELETE FROM projects WHERE project_no = 73
+240619 16:54:01	   173 Query	INSERT INTO salaries (emp_no, salary, from_date, to_date) VALUES (18, 54920, '2024-06-01', '9999-01-01')
+240619 16:54:02	   173 Query	SELECT emp_no, salary FROM salaries WHERE to_date <= CURDATE()
+240619 16:54:11	   173 Query	DELETE FROM project_assignments WHERE project_no = 90
+240619 17:25:19	   173 Query	DELETE FROM project_assignments WHERE project_no = 65
+		   173 Query	SELECT p.project_no, p.project_name FROM projects p LEFT JOIN project_assignments pa ON p.project_no = pa.project_no WHERE pa.emp_no IS NULL AND p.end_date >= CURDATE()
+		   173 Query	SELECT emp_no, first_name, last_name, birth_date, gender, hire_date, manager_emp_no FROM employees WHERE emp_no = 2
+		   173 Query	UPDATE employees SET manager_emp_no = 20 WHERE emp_no = 20
+240619 17:28:19	   173 Query	DELETE FROM project_assignments WHERE emp_no = 64 AND project_no = 64
+240619 17:29:20	   173 Query	UPDATE projects SET start_date = '2023-07-12', end_date = '2023-07-12' WHERE project_no = 14
+240619 17:31:20	   173 Query	UPDATE project_assignments SET assigned_date = '2023-07-06' WHERE emp_no = 15 AND project_no = 1
+240619 17:33:20	   173 Query	SELECT p.project_no, p.project_name FROM projects p LEFT JOIN project_assignments pa ON p.project_no = pa.project_no WHERE pa.emp_no IS NULL AND p.end_date >= CURDATE()
+240619 17:50:21	   173 Query	UPDATE project_assignments SET assigned_date = '2024-06-02' WHERE emp_no = 5 AND project_no = 7
+		   173 Query	UPDATE projects SET end_date = '2023-08-09' WHERE project_no = 14
+		   173 Query	SELECT e.first_name, e.last_name FROM employees e LEFT JOIN project_assignments pa ON e.emp_no = pa.emp_no WHERE pa.emp_no IS NULL
+		   173 Query	UPDATE dept_emp SET dept_no = 11 WHERE emp_no = 20 AND to_date = '2023-08-30'
+240619 17:53:22	   173 Query	INSERT INTO project_assignments (emp_no, dept_no, project_no, assigned_date) VALUES (8, 5, 4, '2024-04-05')
+240619 17:54:21	   173 Query	UPDATE projects SET end_date = '2023-05-04' WHERE project_no = 3
+240619 17:56:22	   173 Query	UPDATE project_assignments SET assigned_date = '2023-10-01' WHERE emp_no = 5 AND project_no = 1
+240619 17:58:22	   173 Query	SELECT project_no, project_name, dept_no, end_date FROM projects WHERE end_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 7 DAY
+240619 17:59:22	   173 Query	SELECT emp_no, dept_no, assigned_date FROM project_assignments WHERE project_no = 7240620
+240622 20:37:28	   226 Connect	root@localhost on employees using TCP/IP
+		   226 Query	SET NAMES 'utf8mb4' COLLATE 'utf8mb4_general_ci'
+		   226 Query	SET NAMES utf8mb4
+		   226 Query	set autocommit=0
+		   226 Quit	
+240622 20:37:41	   227 Connect	root@localhost on employees using TCP/IP
+		   227 Query	SET NAMES 'utf8mb4' COLLATE 'utf8mb4_general_ci'
+		   227 Query	SET NAMES utf8mb4
+		   227 Query	set autocommit=0
+		   227 Quit	
+240622 20:38:00	   228 Connect	root@localhost on employees using TCP/IP
+		   228 Query	SET NAMES 'utf8mb4' COLLATE 'utf8mb4_general_ci'
+		   228 Query	SET NAMES utf8mb4
+		   228 Query	set autocommit=0
+		   228 Quit	
+240622 20:38:10	   229 Connect	root@localhost on employees using TCP/IP
+		   229 Query	SET NAMES 'utf8mb4' COLLATE 'utf8mb4_general_ci'
+		   229 Query	SET NAMES utf8mb4
+		   229 Query	set autocommit=0
+		   229 Query	DELETE FROM project_assignments WHERE project_no = 97
+		   229 Query	DELETE FROM projects WHERE project_no = 79
+		   229 Query	SELECT d.dept_name, COUNT(e.emp_no) AS num_employees FROM departments d JOIN dept_emp de ON d.dept_no = de.dept_no JOIN employees e ON de.emp_no = e.emp_no GROUP BY d.dept_name
+		   229 Query	UPDATE project_assignments SET assigned_date = '2024-10-23' WHERE emp_no = 13 AND project_no = 10
+240622 20:41:11	   229 Query	DELETE FROM project_assignments WHERE project_no = 99
+240622 20:42:11	   229 Query	INSERT INTO projects (project_no, project_name, start_date, end_date, dept_no) VALUES (2, 'Singh, Rodriguez and Ross', '2024-06-20', '2024-06-20', 19)
+240622 20:44:11	   229 Query	INSERT INTO project_assignments (emp_no, dept_no, project_no, assigned_date) VALUES (9, 6, 8, '2023-11-28')
+240622 20:46:12	   229 Query	SELECT project_no, project_name, dept_no, end_date FROM projects WHERE end_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 7 DAY
+240622 20:47:12	   229 Query	INSERT INTO project_assignments (emp_no, dept_no, project_no, assigned_date) VALUES (7, 17, 6, '2024-09-13')
+240622 20:48:11	   229 Query	SELECT d.dept_name FROM departments d LEFT JOIN projects p ON d.dept_no = p.dept_no WHERE p.project_no IS NULL
+240622 20:50:12	   229 Query	DELETE FROM project_assignments WHERE emp_no = 93 AND project_no = 93
+240622 20:50:13	   229 Query	UPDATE projects SET start_date = '2024-10-26', end_date = '2024-10-26' WHERE project_no = 7
+240622 20:53:11	   229 Query	UPDATE departments SET manager_emp_no = 11 WHERE dept_no = 5
+240622 20:53:13	   229 Query	SELECT project_no, dept_no, assigned_date FROM project_assignments WHERE emp_no = 11
+240622 20:54:13	   229 Query	UPDATE projects SET project_name = 'Mason-Terrell' WHERE project_no = 7
+240622 20:56:13	   229 Query	SELECT emp_no, dept_no, assigned_date FROM project_assignments WHERE project_no = 3
+240622 20:58:12	   229 Query	SELECT emp_no, salary FROM salaries WHERE to_date <= CURDATE()
+240622 20:58:14	   229 Query	SELECT p.project_no, p.project_name FROM projects p LEFT JOIN project_assignments pa ON p.project_no = pa.project_no WHERE pa.emp_no IS NULL AND p.end_date >= CURDATE()
+240622 20:59:13	   229 Query	DELETE FROM project_assignments WHERE emp_no = 65 AND project_no = 65
+240622 21:02:14	   229 Query	INSERT INTO project_assignments (emp_no, dept_no, project_no, assigned_date) VALUES (18, 12, 1, '2023-10-10')
+240622 21:02:15	   229 Query	INSERT INTO projects (project_no, project_name, start_date, end_date, dept_no) VALUES (7, 'Cordova, Murphy and Martin', '2024-08-06', '2024-08-06', 16)
+240622 21:05:14	   229 Query	UPDATE project_assignments SET project_no = 14 WHERE emp_no = 6 AND dept_no = 8
+240622 21:06:16	   229 Query	INSERT INTO projects (project_no, project_name, start_date, end_date, dept_no) VALUES (6, 'Smith LLC', '2024-11-15', '2024-11-15', 6)
+240622 21:08:11	   229 Query	UPDATE salaries SET to_date = '2023-02-03' WHERE emp_no = 16 AND to_date = '2023-02-03'
+240622 21:08:12	   229 Query	SELECT emp_no, title FROM titles WHERE to_date <= CURDATE()
+240622 21:08:14	   229 Query	INSERT INTO project_assignments (emp_no, dept_no, project_no, assigned_date) VALUES (4, 3, 2, '2023-12-05')
+240622 21:10:16	   229 Query	UPDATE projects SET start_date = '2024-05-31', end_date = '2024-05-31' WHERE project_no = 2
+240622 21:11:15	   229 Query	SELECT project_no, dept_no, assigned_date FROM project_assignments WHERE emp_no = 2
+240622 21:14:15	   229 Query	UPDATE project_assignments SET project_no = 8 WHERE emp_no = 14 AND dept_no = 12
+240622 21:14:17	   229 Query	SELECT project_no, project_name, dept_no, end_date FROM projects WHERE end_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 7 DAY
+240622 21:17:16	   229 Query	DELETE FROM project_assignments WHERE emp_no = 85 AND project_no = 85
+240622 21:18:13	   229 Query	SELECT e.first_name, e.last_name FROM employees e JOIN project_assignments pa ON e.emp_no = pa.emp_no WHERE pa.project_no = 13
+240622 21:18:18	   229 Query	DELETE FROM projects WHERE project_no = 55
+240622 21:20:16	   229 Query	DELETE FROM project_assignments WHERE emp_no = 72 AND project_no = 72
+240622 21:22:19	   229 Query	DELETE FROM projects WHERE project_no = 94
+240622 21:23:12	   229 Query	UPDATE projects SET project_name = 'Cunningham, Wiggins and Walls' WHERE project_no = 10
+240622 21:23:16	   229 Query	SELECT emp_no, dept_no, assigned_date FROM project_assignments WHERE project_no = 18
+240622 21:26:17	   229 Query	INSERT INTO project_assignments (emp_no, dept_no, project_no, assigned_date) VALUES (11, 11, 9, '2023-10-10')
+240622 21:26:20	   229 Query	SELECT p.project_no, p.project_name FROM projects p LEFT JOIN project_assignments pa ON p.project_no = pa.project_no WHERE pa.emp_no IS NULL AND p.end_date >= CURDATE()
+240622 21:28:13	   229 Query	SELECT emp_no, first_name, last_name, birth_date, gender, hire_date, manager_emp_no FROM employees WHERE emp_no = 13
+240622 21:29:17	   229 Query	DELETE FROM project_assignments WHERE emp_no = 86 AND project_no = 86
+240622 21:30:20	   229 Query	SELECT project_no, project_name, dept_no, end_date FROM projects WHERE end_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 7 DAY
+240622 21:32:17	   229 Query	INSERT INTO project_assignments (emp_no, dept_no, project_no, assigned_date) VALUES (3, 8, 17, '2023-12-13')
+240622 21:34:21	   229 Query	SELECT p.project_no, p.project_name FROM projects p LEFT JOIN project_assignments pa ON p.project_no = pa.project_no WHERE pa.emp_no IS NULL AND p.end_date >= CURDATE()
+240622 21:35:18	   229 Query	SELECT project_no, dept_no, assigned_date FROM project_assignments WHERE emp_no = 11
+240622 21:38:13	   229 Query	UPDATE salaries SET to_date = '2023-06-05' WHERE emp_no = 10 AND to_date = '2023-06-05'
+240622 21:38:14	   229 Query	SELECT emp_no, first_name, last_name, birth_date, gender, hire_date, manager_emp_no FROM employees WHERE emp_no = 17
+240622 21:38:18	   229 Query	DELETE FROM project_assignments WHERE emp_no = 58 AND project_no = 58
+240622 21:38:22	   229 Query	SELECT p.project_no, p.project_name FROM projects p LEFT JOIN project_assignments pa ON p.project_no = pa.project_no WHERE pa.emp_no IS NULL AND p.end_date >= CURDATE()
+240622 21:41:18	   229 Query	UPDATE project_assignments SET assigned_date = '2023-01-30' WHERE emp_no = 2 AND project_no = 3
+240622 21:42:23	   229 Query	SELECT project_no, project_name, dept_no, end_date FROM projects WHERE end_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 7 DAY
+240622 21:44:19	   229 Query	DELETE FROM project_assignments WHERE emp_no = 58 AND project_no = 58
+240622 21:46:24	   229 Query	UPDATE projects SET project_name = 'Sheppard-Perez' WHERE project_no = 17
+240622 21:47:19	   229 Query	UPDATE project_assignments SET assigned_date = '2023-07-28' WHERE emp_no = 20 AND project_no = 16
+240622 21:48:14	   229 Query	SELECT p.project_name, d.dept_name FROM projects p JOIN departments d ON p.dept_no = d.dept_no
+240622 21:50:19	   229 Query	SELECT project_no, dept_no, assigned_date FROM project_assignments WHERE emp_no = 20
+240622 21:50:24	   229 Query	SELECT p.project_no, p.project_name FROM projects p LEFT JOIN project_assignments pa ON p.project_no = pa.project_no WHERE pa.emp_no IS NULL AND p.end_date >= CURDATE()
+240622 21:53:14	   229 Query	UPDATE departments SET manager_emp_no = 2 WHERE dept_no = 18
+240622 21:53:20	   229 Query	SELECT emp_no, dept_no, assigned_date FROM project_assignments WHERE project_no = 19
+240622 21:54:25	   229 Query	INSERT INTO projects (project_no, project_name, start_date, end_date, dept_no) VALUES (8, 'Powell Group', '2023-05-13', '2023-05-13', 2)
+240622 21:56:20	   229 Query	INSERT INTO project_assignments (emp_no, dept_no, project_no, assigned_date) VALUES (8, 10, 16, '2023-07-07')
+240622 21:58:15	   229 Query	SELECT e.first_name, e.last_name FROM employees e JOIN project_assignments pa ON e.emp_no = pa.emp_no WHERE pa.project_no = 13
+240622 21:58:26	   229 Query	INSERT INTO projects (project_no, project_name, start_date, end_date, dept_no) VALUES (1, 'Strong-Schultz', '2024-07-19', '2024-07-19', 5)
+240622 21:59:20	   229 Query	SELECT project_no, dept_no, assigned_date FROM project_assignments WHERE emp_no = 14
+240622 22:02:20	   229 Query	DELETE FROM project_assignments WHERE emp_no = 75 AND project_no = 75
+240622 22:02:27	   229 Query	UPDATE projects SET project_name = 'Bullock, Stephens and Hall' WHERE project_no = 13
+240622 22:05:21	   229 Query	INSERT INTO project_assignments (emp_no, dept_no, project_no, assigned_date) VALUES (14, 6, 5, '2024-08-29')
+240622 22:06:27	   229 Query	INSERT INTO projects (project_no, project_name, start_date, end_date, dept_no) VALUES (19, 'Gonzales-Burton', '2024-05-31', '2024-05-31', 4)
+240622 22:08:14	   229 Query	INSERT INTO salaries (emp_no, salary, from_date, to_date) VALUES (14, 54009, '2024-06-01', '9999-01-01')
+240622 22:08:15	   229 Query	SELECT emp_no, salary FROM salaries WHERE to_date <= CURDATE()
+240622 22:08:21	   229 Query	SELECT emp_no, dept_no, assigned_date FROM project_assignments WHERE project_no = 8
+240622 22:10:28	   229 Query	UPDATE projects SET project_name = 'Bennett LLC' WHERE project_no = 13
+240622 22:11:21	   229 Query	SELECT emp_no, dept_no, assigned_date FROM project_assignments WHERE project_no = 18
+240622 22:14:22	   229 Query	SELECT emp_no, dept_no, assigned_date FROM project_assignments WHERE project_no = 14
+240622 22:14:29	   229 Query	SELECT project_no, project_name, dept_no, end_date FROM projects WHERE end_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 7 DAY
+240622 22:17:22	   229 Query	DELETE FROM project_assignments WHERE emp_no = 61 AND project_no = 61
+240622 22:18:15	   229 Query	SELECT emp_no, first_name, last_name, birth_date, gender, hire_date, manager_emp_no FROM employees WHERE emp_no = 13
+240622 22:18:29	   229 Query	DELETE FROM projects WHERE project_no = 57
+240622 22:20:22	   229 Query	SELECT emp_no, dept_no, assigned_date FROM project_assignments WHERE project_no = 2
+240622 22:22:30	   229 Query	UPDATE projects SET start_date = '2023-10-18', end_date = '2023-10-18' WHERE project_no = 2
+240622 22:23:14	   229 Query	UPDATE project_assignments SET assigned_date = '2023-11-22' WHERE emp_no = 6 AND project_no = 5
+240622 22:23:22	   229 Query	INSERT INTO project_assignments (emp_no, dept_no, project_no, assigned_date) VALUES (7, 16, 18, '2024-04-18')
+240622 22:26:23	   229 Query	SELECT emp_no, dept_no, assigned_date FROM project_assignments WHERE project_no = 8
+240622 22:26:31	   229 Query	DELETE FROM projects WHERE project_no = 94
+240622 22:28:16	   229 Query	SELECT emp_no, salary FROM salaries WHERE to_date <= CURDATE()
+240622 22:29:23	   229 Query	UPDATE project_assignments SET assigned_date = '2024-08-29' WHERE emp_no = 6 AND project_no = 9
+240622 22:30:31	   229 Query	INSERT INTO projects (project_no, project_name, start_date, end_date, dept_no) VALUES (11, 'Diaz Group', '2023-03-17', '2023-03-17', 20)
+240622 22:40:20	   229 Query	DELETE FROM project_assignments WHERE project_no = 55
+		   229 Query	UPDATE projects SET start_date = '2024-01-13', end_date = '2024-01-13' WHERE project_no = 9
+		   229 Query	SELECT emp_no, salary FROM salaries WHERE to_date <= CURDATE()
+		   229 Query	UPDATE salaries SET to_date = '2024-03-18' WHERE emp_no = 7 AND to_date = '2024-03-18'
+240622 22:43:20	   229 Query	INSERT INTO project_assignments (emp_no, dept_no, project_no, assigned_date) VALUES (4, 5, 20, '2024-12-08')
+240622 22:44:21	   229 Query	INSERT INTO projects (project_no, project_name, start_date, end_date, dept_no) VALUES (7, 'Griffin, Smith and Hamilton', '2023-07-04', '2023-07-04', 19)
+240622 22:46:21	   229 Query	DELETE FROM project_assignments WHERE project_no = 95
+240622 22:48:22	   229 Query	SELECT project_no, project_name, dept_no, end_date FROM projects WHERE end_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 7 DAY
+240622 22:49:21	   229 Query	DELETE FROM project_assignments WHERE emp_no = 83 AND project_no = 83
+240622 22:50:21	   229 Query	SELECT e.first_name, e.last_name FROM employees e JOIN project_assignments pa ON e.emp_no = pa.emp_no WHERE pa.project_no = 2
+240622 22:52:22	   229 Query	DELETE FROM project_assignments WHERE emp_no = 50 AND project_no = 50
+240622 22:52:23	   229 Query	UPDATE projects SET project_name = 'Clayton-Porter' WHERE project_no = 12
+240622 22:55:21	   229 Query	UPDATE dept_emp SET dept_no = 2 WHERE emp_no = 2 AND to_date = '2023-01-24'
+240622 22:55:22	   229 Query	INSERT INTO project_assignments (emp_no, dept_no, project_no, assigned_date) VALUES (16, 11, 4, '2023-11-24')
+240622 22:56:24	   229 Query	DELETE FROM projects WHERE project_no = 80
+240622 22:58:23	   229 Query	SELECT emp_no, dept_no, assigned_date FROM project_assignments WHERE project_no = 12
+240622 23:00:01	   229 Quit	
+240622 23:04:06	   230 Connect	root@localhost on employees using TCP/IP
+		   230 Query	SET NAMES 'utf8mb4' COLLATE 'utf8mb4_general_ci'
+		   230 Query	SET NAMES utf8mb4
+		   230 Query	set autocommit=0
+		   230 Query	SELECT emp_no, dept_no, assigned_date FROM project_assignments WHERE project_no = 2
+		   230 Query	SELECT p.project_no, p.project_name FROM projects p LEFT JOIN project_assignments pa ON p.project_no = pa.project_no WHERE pa.emp_no IS NULL AND p.end_date >= CURDATE()
+		   230 Query	SELECT p.project_name, d.dept_name FROM projects p JOIN departments d ON p.dept_no = d.dept_no
+		   230 Query	UPDATE salaries SET to_date = '2024-09-20' WHERE emp_no = 19 AND to_date = '2024-09-20'
+240622 23:07:07	   230 Query	DELETE FROM project_assignments WHERE project_no = 81
+240622 23:08:07	   230 Query	INSERT INTO projects (project_no, project_name, start_date, end_date, dept_no) VALUES (15, 'Johnson-Heath', '2024-01-19', '2024-01-19', 17)
+240622 23:10:07	   230 Query	SELECT project_no, dept_no, assigned_date FROM project_assignments WHERE emp_no = 5
+240622 23:12:08	   230 Query	UPDATE projects SET end_date = '2023-06-30' WHERE project_no = 1
+240622 23:13:07	   230 Query	SELECT emp_no, dept_no, assigned_date FROM project_assignments WHERE project_no = 14
+240622 23:14:07	   230 Query	SELECT emp_no, salary FROM salaries WHERE to_date <= CURDATE()
+240622 23:16:08	   230 Query	DELETE FROM project_assignments WHERE project_no = 70
+240622 23:16:09	   230 Query	SELECT p.project_no, p.project_name FROM projects p LEFT JOIN project_assignments pa ON p.project_no = pa.project_no WHERE pa.emp_no IS NULL AND p.end_date >= CURDATE()
+240622 23:19:06	   230 Query	INSERT INTO salaries (emp_no, salary, from_date, to_date) VALUES (20, 51235, '2024-06-01', '9999-01-01')
+240622 23:19:08	   230 Query	SELECT project_no, dept_no, assigned_date FROM project_assignments WHERE emp_no = 9
+240622 23:20:10	   230 Query	DELETE FROM projects WHERE project_no = 62
+240622 23:22:09	   230 Query	UPDATE project_assignments SET assigned_date = '2024-12-02' WHERE emp_no = 8 AND project_no = 3
+240622 23:24:08	   230 Query	SELECT d.dept_name, COUNT(e.emp_no) AS num_employees FROM departments d JOIN dept_emp de ON d.dept_no = de.dept_no JOIN employees e ON de.emp_no = e.emp_no GROUP BY d.dept_name
+240622 23:24:11	   230 Query	UPDATE projects SET start_date = '2023-04-11', end_date = '2023-04-11' WHERE project_no = 16
+240622 23:25:09	   230 Query	UPDATE project_assignments SET assigned_date = '2024-01-22' WHERE emp_no = 8 AND project_no = 18
+240622 23:28:10	   230 Query	INSERT INTO project_assignments (emp_no, dept_no, project_no, assigned_date) VALUES (8, 1, 14, '2024-10-04')
+240622 23:28:12	   230 Query	UPDATE projects SET project_name = 'Esparza-Owen' WHERE project_no = 4
+240622 23:31:10	   230 Query	DELETE FROM project_assignments WHERE emp_no = 56 AND project_no = 56
+240622 23:32:12	   230 Query	SELECT p.project_no, p.project_name FROM projects p LEFT JOIN project_assignments pa ON p.project_no = pa.project_no WHERE pa.emp_no IS NULL AND p.end_date >= CURDATE()
+240622 23:34:07	   230 Query	INSERT INTO salaries (emp_no, salary, from_date, to_date) VALUES (5, 74685, '2024-06-01', '9999-01-01')
+240622 23:34:08	   230 Query	SELECT p.project_name, d.dept_name FROM projects p JOIN departments d ON p.dept_no = d.dept_no
+240622 23:34:10	   230 Query	SELECT project_no, dept_no, assigned_date FROM project_assignments WHERE emp_no = 1
+240622 23:36:13	   230 Query	SELECT project_no, project_name, dept_no, end_date FROM projects WHERE end_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 7 DAY
+240622 23:37:10	   230 Query	DELETE FROM project_assignments WHERE project_no = 76
+240622 23:40:11	   230 Query	SELECT project_no, dept_no, assigned_date FROM project_assignments WHERE emp_no = 5
+240622 23:40:14	   230 Query	UPDATE projects SET project_name = 'Sullivan-Scott' WHERE project_no = 13
+240622 23:43:11	   230 Query	DELETE FROM project_assignments WHERE emp_no = 75 AND project_no = 75
+240622 23:44:09	   230 Query	SELECT p.project_name, d.dept_name FROM projects p JOIN departments d ON p.dept_no = d.dept_no
+240622 23:44:14	   230 Query	SELECT p.project_no, p.project_name FROM projects p LEFT JOIN project_assignments pa ON p.project_no = pa.project_no WHERE pa.emp_no IS NULL AND p.end_date >= CURDATE()
+240622 23:46:12	   230 Query	INSERT INTO project_assignments (emp_no, dept_no, project_no, assigned_date) VALUES (12, 18, 20, '2023-10-15')
+240622 23:48:15	   230 Query	UPDATE projects SET project_name = 'Contreras PLC' WHERE project_no = 12
+240623  0:55:49	   230 Query	SELECT project_no, dept_no, assigned_date FROM project_assignments WHERE emp_no = 6
+		   230 Query	SELECT project_no, project_name, dept_no, end_date FROM projects WHERE end_date BETWEEN CURDATE() AND CURDATE() + INTERVAL 7 DAY
+		   230 Query	SELECT emp_no, first_name, last_name, birth_date, gender, hire_date, manager_emp_no FROM employees WHERE emp_no = 6
+		   230 Query	UPDATE departments SET manager_emp_no = 19 WHERE dept_no = 3
+240623  0:56:29	   230 Quit	
+2240623  1:11:16   233 Connect	root@localhost on employees using TCP/IP
+		   233 Query	UPDATE titles SET title = 'Software Engineer' WHERE emp_no = 10 AND from_date = '2023-01-08'
+240623  1:13:34	   233 Query	SELECT emp_no, title FROM titles WHERE to_date <= CURDATE()
+240623  1:14:00	   233 Query	SELECT emp_no, title FROM titles WHERE to_date <= CURDATE()
+240623  1:15:36	   233 Query	UPDATE titles SET title = 'Software Engineer' WHERE emp_no = 17 AND from_date = '2018-08-28'
+240623  1:19:12	   233 Query	SELECT emp_no, title FROM titles WHERE to_date <= CURDATE()

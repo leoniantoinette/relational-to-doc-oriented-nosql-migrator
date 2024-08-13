@@ -1,0 +1,109 @@
+2024-07-05 07:05:14.621 +07 [29340] LOG:  statement: BEGIN
+2024-07-05 07:05:14.621 +07 [29340] LOG:  statement: SELECT books.title, AVG(reviews.rating) AS average_rating FROM reviews JOIN books ON reviews.book_id = books.id GROUP BY books.id
+2024-07-05 07:05:47.350 +07 [30492] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2024-07-05 07:06:14.644 +07 [29340] LOG:  statement: SELECT books.title, AVG(reviews.rating) AS average_rating FROM books JOIN reviews ON books.id = reviews.book_id GROUP BY books.id ORDER BY average_rating DESC LIMIT 5
+2024-07-05 07:07:14.666 +07 [29340] LOG:  statement: SELECT books.id, books.title, authors.name AS author_name FROM books JOIN authors ON books.author_id = authors.id
+2024-07-05 07:08:14.688 +07 [29340] LOG:  statement: SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+2024-07-05 07:09:14.696 +07 [29340] LOG:  statement: SELECT users.username, COUNT(reviews.id) AS review_count FROM users JOIN reviews ON users.id = reviews.user_id GROUP BY users.id
+2024-07-05 07:10:14.717 +07 [29340] LOG:  statement: UPDATE book_genres SET description = 'Cup share her quickly. Morning film action look.' WHERE id = 691
+2024-07-05 07:11:14.726 +07 [29340] LOG:  statement: SELECT authors.name, COUNT(books.id) AS book_count FROM authors JOIN books ON authors.id = books.author_id GROUP BY authors.id HAVING COUNT(books.id) > 5
+2024-07-05 07:12:14.744 +07 [29340] LOG:  statement: SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+2024-07-05 07:13:14.763 +07 [29340] LOG:  statement: SELECT books.title, reviews.rating, reviews.comment FROM books JOIN reviews ON books.id = reviews.book_id WHERE reviews.created_at >= CURRENT_DATE - INTERVAL '1 MONTH';
+2024-07-05 07:14:14.774 +07 [29340] LOG:  statement: SELECT * FROM users
+2024-07-05 07:15:14.782 +07 [29340] LOG:  statement: SELECT books.title, COUNT(reviews.id) AS review_count FROM books JOIN reviews ON books.id = reviews.book_id GROUP BY books.id ORDER BY review_count DESC LIMIT 1
+2024-07-05 07:16:14.796 +07 [29340] LOG:  statement: UPDATE book_genres SET description = 'Chair list lawyer benefit.' WHERE id = 744
+2024-07-05 07:17:14.811 +07 [29340] LOG:  statement: SELECT users.username, COUNT(reviews.id) AS review_count FROM users JOIN reviews ON users.id = reviews.user_id GROUP BY users.id
+2024-07-05 07:18:14.821 +07 [29340] LOG:  statement: SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+2024-07-05 07:19:14.836 +07 [29340] LOG:  statement: SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id WHERE books.author_id = 259
+2024-07-05 07:20:14.840 +07 [29340] LOG:  statement: SELECT users.username, COUNT(reviews.id) AS review_count FROM users JOIN reviews ON users.id = reviews.user_id GROUP BY users.id
+2024-07-05 07:21:14.854 +07 [29340] LOG:  statement: UPDATE authors SET bio = 'While bag suggest whatever relationship.' WHERE name = 'Katie Mendoza'
+2024-07-05 07:22:14.857 +07 [29340] LOG:  statement: SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id
+2024-07-05 07:23:14.862 +07 [29340] LOG:  statement: SELECT books.title, reviews.rating, reviews.comment FROM books JOIN reviews ON books.id = reviews.book_id WHERE reviews.created_at >= CURRENT_DATE - INTERVAL '1 MONTH';
+2024-07-05 07:24:14.874 +07 [29340] LOG:  statement: SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id
+2024-07-05 07:25:14.878 +07 [29340] LOG:  statement: SELECT * FROM users
+2024-07-05 07:26:14.881 +07 [29340] LOG:  statement: SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+2024-07-05 07:27:14.888 +07 [29340] LOG:  statement: UPDATE books SET title = 'Updated Book Title' WHERE id = 614
+2024-07-05 07:28:14.901 +07 [29340] LOG:  statement: SELECT books.title, COUNT(reviews.id) AS review_count FROM books JOIN reviews ON books.id = reviews.book_id GROUP BY books.id ORDER BY review_count DESC LIMIT 1
+2024-07-05 07:29:14.918 +07 [29340] LOG:  statement: UPDATE books SET title = 'Updated Book Title' WHERE id = 882
+2024-07-05 07:30:14.930 +07 [29340] LOG:  statement: SELECT DISTINCT users.username FROM users JOIN reviews ON users.id = reviews.user_id
+2024-07-05 07:31:14.937 +07 [29340] LOG:  statement: SELECT users.username, COUNT(reviews.id) AS review_count FROM users JOIN reviews ON users.id = reviews.user_id GROUP BY users.id
+2024-07-05 07:32:14.950 +07 [29340] LOG:  statement: SELECT books.id, books.title, authors.name AS author_name FROM books JOIN authors ON books.author_id = authors.id
+2024-07-05 07:33:14.968 +07 [29340] LOG:  statement: UPDATE users SET email = 'joseph85@example.org' WHERE username = 'estradapaul'
+2024-07-05 07:34:14.971 +07 [29340] LOG:  statement: SELECT book_genres.genre, COUNT(books.id) AS book_count FROM book_genres JOIN books ON book_genres.book_id = books.id GROUP BY book_genres.genre
+2024-07-05 07:35:14.990 +07 [29340] LOG:  statement: SELECT books.id, books.title, authors.name AS author_name FROM books JOIN authors ON books.author_id = authors.id
+2024-07-05 07:36:15.003 +07 [29340] LOG:  statement: SELECT authors.name, COUNT(books.id) AS book_count FROM authors JOIN books ON authors.id = books.author_id GROUP BY authors.id HAVING COUNT(books.id) > 5
+2024-07-05 07:37:15.010 +07 [29340] LOG:  statement: SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id WHERE books.author_id = 649
+2024-07-05 07:38:15.026 +07 [29340] LOG:  statement: SELECT books.title, AVG(reviews.rating) AS average_rating FROM books JOIN reviews ON books.id = reviews.book_id GROUP BY books.id ORDER BY average_rating DESC LIMIT 5
+2024-07-05 07:39:15.047 +07 [29340] LOG:  statement: SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id WHERE books.author_id = 721
+2024-07-05 07:40:15.058 +07 [29340] LOG:  statement: SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id
+2024-07-05 07:41:15.068 +07 [29340] LOG:  statement: SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+2024-07-05 07:42:15.077 +07 [29340] LOG:  statement: SELECT users.username, COUNT(reviews.id) AS review_count FROM users JOIN reviews ON users.id = reviews.user_id GROUP BY users.id
+2024-07-05 07:43:15.094 +07 [29340] LOG:  statement: SELECT authors.name, COUNT(books.id) AS book_count FROM authors JOIN books ON authors.id = books.author_id GROUP BY authors.id HAVING COUNT(books.id) > 5
+2024-07-05 07:44:15.112 +07 [29340] LOG:  statement: UPDATE reviews SET rating = 3 WHERE id = 810
+2024-07-05 07:45:15.121 +07 [29340] LOG:  statement: SELECT books.title, AVG(reviews.rating) AS average_rating FROM reviews JOIN books ON reviews.book_id = books.id GROUP BY books.id
+2024-07-05 07:46:15.136 +07 [29340] LOG:  statement: SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+2024-07-05 07:47:15.147 +07 [29340] LOG:  statement: SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+2024-07-05 07:48:15.152 +07 [29340] LOG:  statement: SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+2024-07-05 07:49:15.159 +07 [29340] LOG:  statement: SELECT books.title, AVG(reviews.rating) AS average_rating FROM books JOIN reviews ON books.id = reviews.book_id GROUP BY books.id ORDER BY average_rating DESC LIMIT 5
+2024-07-05 07:50:15.179 +07 [29340] LOG:  statement: SELECT books.title, reviews.rating, reviews.comment FROM books JOIN reviews ON books.id = reviews.book_id WHERE reviews.created_at >= CURRENT_DATE - INTERVAL '1 MONTH';
+2024-07-05 07:51:15.187 +07 [29340] LOG:  statement: SELECT reviews.id, users.username, books.title, reviews.rating, reviews.comment FROM reviews JOIN users ON reviews.user_id = users.id JOIN books ON reviews.book_id = books.id
+2024-07-05 07:52:15.207 +07 [29340] LOG:  statement: UPDATE authors SET bio = 'Coach Mr participant together.' WHERE name = 'Monica Norton'
+2024-07-05 07:53:15.211 +07 [29340] LOG:  statement: SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id WHERE books.author_id = 23
+2024-07-05 07:54:15.218 +07 [29340] LOG:  statement: SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+2024-07-05 07:55:15.227 +07 [29340] LOG:  statement: SELECT books.title, COUNT(reviews.id) AS review_count FROM books JOIN reviews ON books.id = reviews.book_id GROUP BY books.id ORDER BY review_count DESC LIMIT 1
+2024-07-05 07:56:15.239 +07 [29340] LOG:  statement: SELECT * FROM users
+2024-07-05 07:57:15.248 +07 [29340] LOG:  statement: SELECT books.id, books.title, authors.name AS author_name FROM books JOIN authors ON books.author_id = authors.id
+2024-07-05 07:58:15.262 +07 [29340] LOG:  statement: SELECT authors.name, COUNT(books.id) AS book_count FROM authors JOIN books ON authors.id = books.author_id GROUP BY authors.id HAVING COUNT(books.id) > 5
+2024-07-05 07:59:15.268 +07 [29340] LOG:  statement: SELECT DISTINCT users.username FROM users JOIN reviews ON users.id = reviews.user_id
+2024-07-05 08:00:15.276 +07 [29340] LOG:  statement: SELECT * FROM users
+2024-07-05 08:01:15.288 +07 [29340] LOG:  statement: SELECT DISTINCT users.username FROM users JOIN reviews ON users.id = reviews.user_id
+2024-07-05 08:02:15.298 +07 [29340] LOG:  statement: SELECT authors.name, COUNT(reviews.id) AS total_reviews FROM authors JOIN books ON authors.id = books.author_id JOIN reviews ON books.id = reviews.book_id GROUP BY authors.id
+2024-07-05 08:03:15.305 +07 [29340] LOG:  statement: SELECT users.username, COUNT(reviews.id) AS review_count FROM users JOIN reviews ON users.id = reviews.user_id GROUP BY users.id
+2024-07-05 08:04:15.310 +07 [29340] LOG:  statement: UPDATE authors SET bio = 'Small give responsibility cost culture.' WHERE name = 'Adam Bass'
+2024-07-05 08:05:15.320 +07 [29340] LOG:  statement: SELECT DISTINCT users.username FROM users JOIN reviews ON users.id = reviews.user_id
+2024-07-05 08:06:15.327 +07 [29340] LOG:  statement: SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+2024-07-05 08:07:15.339 +07 [29340] LOG:  statement: SELECT * FROM users
+2024-07-05 08:08:15.349 +07 [29340] LOG:  statement: SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+2024-07-05 08:09:15.353 +07 [29340] LOG:  statement: UPDATE users SET email = 'sholmes@example.org' WHERE username = 'alexanderjon'
+2024-07-05 08:10:15.361 +07 [29340] LOG:  statement: SELECT books.title, COUNT(reviews.id) AS review_count FROM books JOIN reviews ON books.id = reviews.book_id GROUP BY books.id ORDER BY review_count DESC LIMIT 1
+2024-07-05 08:11:15.372 +07 [29340] LOG:  statement: SELECT authors.name, COUNT(books.id) AS book_count FROM authors JOIN books ON authors.id = books.author_id GROUP BY authors.id HAVING COUNT(books.id) > 5
+2024-07-05 08:12:15.383 +07 [29340] LOG:  statement: SELECT books.title, AVG(reviews.rating) AS average_rating FROM books JOIN reviews ON books.id = reviews.book_id GROUP BY books.id ORDER BY average_rating DESC LIMIT 5
+2024-07-05 08:13:15.399 +07 [29340] LOG:  statement: SELECT reviews.id, users.username, books.title, reviews.rating, reviews.comment FROM reviews JOIN users ON reviews.user_id = users.id JOIN books ON reviews.book_id = books.id
+2024-07-05 08:14:15.417 +07 [29340] LOG:  statement: SELECT * FROM users
+2024-07-05 08:15:15.430 +07 [29340] LOG:  statement: SELECT authors.name, COUNT(reviews.id) AS total_reviews FROM authors JOIN books ON authors.id = books.author_id JOIN reviews ON books.id = reviews.book_id GROUP BY authors.id
+2024-07-05 08:16:15.451 +07 [29340] LOG:  statement: SELECT authors.name, COUNT(books.id) AS book_count FROM authors JOIN books ON authors.id = books.author_id GROUP BY authors.id HAVING COUNT(books.id) > 5
+2024-07-05 08:17:15.465 +07 [29340] LOG:  statement: SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+2024-07-05 08:55:19.931 +07 [29340] LOG:  statement: SELECT reviews.id, users.username, books.title, reviews.rating, reviews.comment FROM reviews JOIN users ON reviews.user_id = users.id JOIN books ON reviews.book_id = books.id
+2024-07-05 08:56:19.944 +07 [29340] LOG:  statement: SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id
+2024-07-05 08:57:19.955 +07 [29340] LOG:  statement: SELECT DISTINCT users.username FROM users JOIN reviews ON users.id = reviews.user_id
+2024-07-05 08:58:19.969 +07 [29340] LOG:  statement: SELECT * FROM users
+2024-07-05 08:59:19.973 +07 [29340] LOG:  statement: SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+2024-07-05 09:00:19.982 +07 [29340] LOG:  statement: SELECT DISTINCT users.username FROM users JOIN reviews ON users.id = reviews.user_id
+2024-07-05 09:01:19.994 +07 [29340] LOG:  statement: SELECT books.title, AVG(reviews.rating) AS average_rating FROM reviews JOIN books ON reviews.book_id = books.id GROUP BY books.id
+2024-07-05 09:02:20.010 +07 [29340] LOG:  statement: SELECT books.id, books.title, authors.name AS author_name FROM books JOIN authors ON books.author_id = authors.id
+2024-07-05 09:03:20.024 +07 [29340] LOG:  statement: SELECT * FROM users
+2024-07-05 09:04:20.029 +07 [29340] LOG:  statement: SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id
+2024-07-05 09:05:20.043 +07 [29340] LOG:  statement: SELECT DISTINCT users.username FROM users JOIN reviews ON users.id = reviews.user_id
+2024-07-05 09:06:20.056 +07 [29340] LOG:  statement: SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+2024-07-05 09:07:20.063 +07 [29340] LOG:  statement: SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+2024-07-05 09:08:20.069 +07 [29340] LOG:  statement: SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+2024-07-05 09:09:20.074 +07 [29340] LOG:  statement: SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id WHERE books.author_id = 287
+2024-07-05 09:10:20.078 +07 [29340] LOG:  statement: SELECT books.title, reviews.rating, reviews.comment FROM books JOIN reviews ON books.id = reviews.book_id WHERE reviews.created_at >= CURRENT_DATE - INTERVAL '1 MONTH';
+2024-07-05 09:11:20.083 +07 [29340] LOG:  statement: SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id WHERE books.author_id = 181
+2024-07-05 09:12:20.090 +07 [29340] LOG:  statement: SELECT books.title, reviews.rating, reviews.comment FROM books JOIN reviews ON books.id = reviews.book_id WHERE reviews.created_at >= CURRENT_DATE - INTERVAL '1 MONTH';
+2024-07-05 09:13:20.101 +07 [29340] LOG:  statement: SELECT books.title, AVG(reviews.rating) AS average_rating FROM reviews JOIN books ON reviews.book_id = books.id GROUP BY books.id
+2024-07-05 09:14:20.115 +07 [29340] LOG:  statement: SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id WHERE books.author_id = 904
+2024-07-05 09:15:20.133 +07 [29340] LOG:  statement: SELECT reviews.id, users.username, books.title, reviews.rating, reviews.comment FROM reviews JOIN users ON reviews.user_id = users.id JOIN books ON reviews.book_id = books.id
+2024-07-05 09:16:20.151 +07 [29340] LOG:  statement: UPDATE book_formats SET format = 'Mr' WHERE id = 424
+2024-07-05 09:17:20.162 +07 [29340] LOG:  statement: SELECT books.id, books.title, authors.name AS author_name FROM books JOIN authors ON books.author_id = authors.id
+2024-07-05 09:18:20.181 +07 [29340] LOG:  statement: SELECT users.username, COUNT(reviews.id) AS review_count FROM users JOIN reviews ON users.id = reviews.user_id GROUP BY users.id
+2024-07-05 09:19:20.198 +07 [29340] LOG:  statement: SELECT authors.name, COUNT(books.id) AS book_count FROM authors JOIN books ON authors.id = books.author_id GROUP BY authors.id HAVING COUNT(books.id) > 5
+2024-07-05 09:20:20.216 +07 [29340] LOG:  statement: SELECT reviews.id, users.username, books.title, reviews.rating, reviews.comment FROM reviews JOIN users ON reviews.user_id = users.id JOIN books ON reviews.book_id = books.id
+2024-07-05 09:21:20.229 +07 [29340] LOG:  statement: SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id
+2024-07-05 09:22:20.237 +07 [29340] LOG:  statement: UPDATE book_formats SET format = 'program' WHERE id = 109
+2024-07-05 09:23:20.241 +07 [29340] LOG:  statement: SELECT books.id, books.title, authors.name AS author_name FROM books JOIN authors ON books.author_id = authors.id
+2024-07-05 09:24:20.249 +07 [29340] LOG:  statement: SELECT books.title, AVG(reviews.rating) AS average_rating FROM books JOIN reviews ON books.id = reviews.book_id GROUP BY books.id ORDER BY average_rating DESC LIMIT 5
+2024-07-05 09:25:20.266 +07 [29340] LOG:  statement: SELECT users.username, COUNT(reviews.id) AS review_count FROM users JOIN reviews ON users.id = reviews.user_id GROUP BY users.id
+2024-07-05 12:28:47.647 +07 [7508] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	

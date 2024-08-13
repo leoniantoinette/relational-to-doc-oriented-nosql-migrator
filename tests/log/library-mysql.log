@@ -1,0 +1,109 @@
+240626  9:08:08	   281 Connect	root@localhost on library using TCP/IP
+		   281 Query	SET NAMES 'utf8mb4' COLLATE 'utf8mb4_general_ci'
+		   281 Query	SET NAMES utf8mb4
+		   281 Query	set autocommit=0
+		   281 Query	SELECT books.title, AVG(reviews.rating) AS average_rating FROM reviews JOIN books ON reviews.book_id = books.id GROUP BY books.id
+240626  9:10:08	   281 Query	SELECT books.title, AVG(reviews.rating) AS average_rating FROM books JOIN reviews ON books.id = reviews.book_id GROUP BY books.id ORDER BY average_rating DESC LIMIT 5
+240626  9:12:09	   281 Query	SELECT books.id, books.title, authors.name AS author_name FROM books JOIN authors ON books.author_id = authors.id
+240626  9:14:10	   281 Query	SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+240626  9:16:11	   281 Query	SELECT users.username, COUNT(reviews.id) AS review_count FROM users JOIN reviews ON users.id = reviews.user_id GROUP BY users.id
+240626  9:18:08	   281 Query	UPDATE book_genres SET description = 'Cup share her quickly. Morning film action look.' WHERE id = 691
+240626  9:18:12	   281 Query	SELECT authors.name, COUNT(books.id) AS book_count FROM authors JOIN books ON authors.id = books.author_id GROUP BY authors.id HAVING COUNT(books.id) > 5
+240626  9:20:13	   281 Query	SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+240626  9:22:14	   281 Query	SELECT books.title, reviews.rating, reviews.comment FROM books JOIN reviews ON books.id = reviews.book_id WHERE reviews.created_at >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
+240626  9:24:15	   281 Query	SELECT * FROM users
+240626  9:31:24	   281 Query	SELECT books.title, COUNT(reviews.id) AS review_count FROM books JOIN reviews ON books.id = reviews.book_id GROUP BY books.id ORDER BY review_count DESC LIMIT 1
+		   281 Query	UPDATE book_genres SET description = 'Chair list lawyer benefit.' WHERE id = 744
+240626  9:33:24	   281 Query	SELECT users.username, COUNT(reviews.id) AS review_count FROM users JOIN reviews ON users.id = reviews.user_id GROUP BY users.id
+240626  9:35:25	   281 Query	SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+240626  9:37:26	   281 Query	SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id WHERE books.author_id = 259
+240626  9:39:27	   281 Query	SELECT users.username, COUNT(reviews.id) AS review_count FROM users JOIN reviews ON users.id = reviews.user_id GROUP BY users.id
+240626  9:41:25	   281 Query	UPDATE authors SET bio = 'While bag suggest whatever relationship.' WHERE name = 'Katie Mendoza'
+240626  9:41:28	   281 Query	SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id
+240626  9:43:29	   281 Query	SELECT books.title, reviews.rating, reviews.comment FROM books JOIN reviews ON books.id = reviews.book_id WHERE reviews.created_at >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
+240626  9:45:30	   281 Query	SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id
+240626  9:47:31	   281 Query	SELECT * FROM users
+240626  9:49:31	   281 Query	SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+240626  9:51:25	   281 Query	UPDATE books SET title = 'Updated Book Title' WHERE id = 614
+240626 10:03:54	   281 Query	SELECT books.title, COUNT(reviews.id) AS review_count FROM books JOIN reviews ON books.id = reviews.book_id GROUP BY books.id ORDER BY review_count DESC LIMIT 1
+		   281 Query	UPDATE books SET title = 'Updated Book Title' WHERE id = 882
+240626 10:05:55	   281 Query	SELECT DISTINCT users.username FROM users JOIN reviews ON users.id = reviews.user_id
+240626 10:07:55	   281 Query	SELECT users.username, COUNT(reviews.id) AS review_count FROM users JOIN reviews ON users.id = reviews.user_id GROUP BY users.id
+240626 10:18:36	   281 Query	SELECT books.id, books.title, authors.name AS author_name FROM books JOIN authors ON books.author_id = authors.id
+		   281 Query	UPDATE users SET email = 'joseph85@example.org' WHERE username = 'estradapaul'
+240626 10:20:37	   281 Query	SELECT book_genres.genre, COUNT(books.id) AS book_count FROM book_genres JOIN books ON book_genres.book_id = books.id GROUP BY book_genres.genre
+240626 10:22:38	   281 Query	SELECT books.id, books.title, authors.name AS author_name FROM books JOIN authors ON books.author_id = authors.id
+240626 10:24:39	   281 Query	SELECT authors.name, COUNT(books.id) AS book_count FROM authors JOIN books ON authors.id = books.author_id GROUP BY authors.id HAVING COUNT(books.id) > 5
+240626 10:26:40	   281 Query	SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id WHERE books.author_id = 649
+240626 10:28:41	   281 Query	SELECT books.title, AVG(reviews.rating) AS average_rating FROM books JOIN reviews ON books.id = reviews.book_id GROUP BY books.id ORDER BY average_rating DESC LIMIT 5
+240626 10:30:42	   281 Query	SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id WHERE books.author_id = 721
+240626 10:32:42	   281 Query	SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id
+240626 10:34:43	   281 Query	SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+240626 10:36:44	   281 Query	SELECT users.username, COUNT(reviews.id) AS review_count FROM users JOIN reviews ON users.id = reviews.user_id GROUP BY users.id
+240626 11:19:41	   281 Query	SELECT authors.name, COUNT(books.id) AS book_count FROM authors JOIN books ON authors.id = books.author_id GROUP BY authors.id HAVING COUNT(books.id) > 5
+		   281 Query	UPDATE reviews SET rating = 3 WHERE id = 810
+240626 11:21:42	   281 Query	SELECT books.title, AVG(reviews.rating) AS average_rating FROM reviews JOIN books ON reviews.book_id = books.id GROUP BY books.id
+240626 11:23:43	   281 Query	SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+240626 12:31:39	   281 Query	SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+240626 12:33:39	   281 Query	SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+240626 12:35:40	   281 Query	SELECT books.title, AVG(reviews.rating) AS average_rating FROM books JOIN reviews ON books.id = reviews.book_id GROUP BY books.id ORDER BY average_rating DESC LIMIT 5
+240626 12:37:41	   281 Query	SELECT books.title, reviews.rating, reviews.comment FROM books JOIN reviews ON books.id = reviews.book_id WHERE reviews.created_at >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
+240626 12:39:41	   281 Query	SELECT reviews.id, users.username, books.title, reviews.rating, reviews.comment FROM reviews JOIN users ON reviews.user_id = users.id JOIN books ON reviews.book_id = books.id
+240626 12:41:40	   281 Query	UPDATE authors SET bio = 'Coach Mr participant together.' WHERE name = 'Monica Norton'
+240626 12:41:42	   281 Query	SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id WHERE books.author_id = 23
+240626 12:43:43	   281 Query	SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+240626 12:45:43	   281 Query	SELECT books.title, COUNT(reviews.id) AS review_count FROM books JOIN reviews ON books.id = reviews.book_id GROUP BY books.id ORDER BY review_count DESC LIMIT 1
+240626 12:47:44	   281 Query	SELECT * FROM users
+240626 12:49:45	   281 Query	SELECT books.id, books.title, authors.name AS author_name FROM books JOIN authors ON books.author_id = authors.id
+240626 12:51:46	   281 Query	SELECT authors.name, COUNT(books.id) AS book_count FROM authors JOIN books ON authors.id = books.author_id GROUP BY authors.id HAVING COUNT(books.id) > 5
+240626 12:53:47	   281 Query	SELECT DISTINCT users.username FROM users JOIN reviews ON users.id = reviews.user_id
+240626 12:55:48	   281 Query	SELECT * FROM users
+240626 12:57:48	   281 Query	SELECT DISTINCT users.username FROM users JOIN reviews ON users.id = reviews.user_id
+240626 12:59:49	   281 Query	SELECT authors.name, COUNT(reviews.id) AS total_reviews FROM authors JOIN books ON authors.id = books.author_id JOIN reviews ON books.id = reviews.book_id GROUP BY authors.id
+240626 13:09:40	   281 Query	SELECT users.username, COUNT(reviews.id) AS review_count FROM users JOIN reviews ON users.id = reviews.user_id GROUP BY users.id
+		   281 Query	UPDATE authors SET bio = 'Small give responsibility cost culture.' WHERE name = 'Adam Bass'
+240626 13:11:41	   281 Query	SELECT DISTINCT users.username FROM users JOIN reviews ON users.id = reviews.user_id
+240626 13:13:42	   281 Query	SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+240626 13:15:43	   281 Query	SELECT * FROM users
+240626 13:21:27	   281 Query	SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+		   281 Query	UPDATE users SET email = 'sholmes@example.org' WHERE username = 'alexanderjon'
+240626 13:23:27	   281 Query	SELECT books.title, COUNT(reviews.id) AS review_count FROM books JOIN reviews ON books.id = reviews.book_id GROUP BY books.id ORDER BY review_count DESC LIMIT 1
+240626 13:25:28	   281 Query	SELECT authors.name, COUNT(books.id) AS book_count FROM authors JOIN books ON authors.id = books.author_id GROUP BY authors.id HAVING COUNT(books.id) > 5
+240626 13:27:29	   281 Query	SELECT books.title, AVG(reviews.rating) AS average_rating FROM books JOIN reviews ON books.id = reviews.book_id GROUP BY books.id ORDER BY average_rating DESC LIMIT 5
+240626 13:29:29	   281 Query	SELECT reviews.id, users.username, books.title, reviews.rating, reviews.comment FROM reviews JOIN users ON reviews.user_id = users.id JOIN books ON reviews.book_id = books.id
+240626 13:31:30	   281 Query	SELECT * FROM users
+240626 13:33:31	   281 Query	SELECT authors.name, COUNT(reviews.id) AS total_reviews FROM authors JOIN books ON authors.id = books.author_id JOIN reviews ON books.id = reviews.book_id GROUP BY authors.id
+240626 13:35:32	   281 Query	SELECT authors.name, COUNT(books.id) AS book_count FROM authors JOIN books ON authors.id = books.author_id GROUP BY authors.id HAVING COUNT(books.id) > 5
+240626 13:37:33	   281 Query	SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+240626 13:39:34	   281 Query	SELECT reviews.id, users.username, books.title, reviews.rating, reviews.comment FROM reviews JOIN users ON reviews.user_id = users.id JOIN books ON reviews.book_id = books.id
+240626 13:41:35	   281 Query	SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id
+240626 13:43:36	   281 Query	SELECT DISTINCT users.username FROM users JOIN reviews ON users.id = reviews.user_id
+240626 13:45:36	   281 Query	SELECT * FROM users
+240626 13:47:37	   281 Query	SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+240626 13:49:38	   281 Query	SELECT DISTINCT users.username FROM users JOIN reviews ON users.id = reviews.user_id
+240626 13:51:38	   281 Query	SELECT books.title, AVG(reviews.rating) AS average_rating FROM reviews JOIN books ON reviews.book_id = books.id GROUP BY books.id
+240626 13:53:39	   281 Query	SELECT books.id, books.title, authors.name AS author_name FROM books JOIN authors ON books.author_id = authors.id
+240626 13:55:40	   281 Query	SELECT * FROM users
+240626 13:57:41	   281 Query	SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id
+240626 13:59:42	   281 Query	SELECT DISTINCT users.username FROM users JOIN reviews ON users.id = reviews.user_id
+240626 14:01:43	   281 Query	SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+240626 14:03:44	   281 Query	SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+240626 14:05:45	   281 Query	SELECT books.title, book_formats.format, book_formats.file_url FROM books JOIN book_formats ON books.id = book_formats.book_id
+240626 14:07:46	   281 Query	SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id WHERE books.author_id = 287
+240626 14:09:46	   281 Query	SELECT books.title, reviews.rating, reviews.comment FROM books JOIN reviews ON books.id = reviews.book_id WHERE reviews.created_at >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
+240626 14:11:47	   281 Query	SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id WHERE books.author_id = 181
+240626 14:13:48	   281 Query	SELECT books.title, reviews.rating, reviews.comment FROM books JOIN reviews ON books.id = reviews.book_id WHERE reviews.created_at >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH)
+240626 14:15:49	   281 Query	SELECT books.title, AVG(reviews.rating) AS average_rating FROM reviews JOIN books ON reviews.book_id = books.id GROUP BY books.id
+240626 14:17:50	   281 Query	SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id WHERE books.author_id = 904
+240626 14:19:51	   281 Query	SELECT reviews.id, users.username, books.title, reviews.rating, reviews.comment FROM reviews JOIN users ON reviews.user_id = users.id JOIN books ON reviews.book_id = books.id
+240626 14:21:29	   281 Query	UPDATE book_formats SET format = 'Mr' WHERE id = 424
+240626 14:21:52	   281 Query	SELECT books.id, books.title, authors.name AS author_name FROM books JOIN authors ON books.author_id = authors.id
+240626 14:23:52	   281 Query	SELECT users.username, COUNT(reviews.id) AS review_count FROM users JOIN reviews ON users.id = reviews.user_id GROUP BY users.id
+240626 14:25:53	   281 Query	SELECT authors.name, COUNT(books.id) AS book_count FROM authors JOIN books ON authors.id = books.author_id GROUP BY authors.id HAVING COUNT(books.id) > 5
+240626 14:27:54	   281 Query	SELECT reviews.id, users.username, books.title, reviews.rating, reviews.comment FROM reviews JOIN users ON reviews.user_id = users.id JOIN books ON reviews.book_id = books.id
+240626 14:29:55	   281 Query	SELECT books.title, book_genres.genre FROM books JOIN book_genres ON books.id = book_genres.book_id
+240626 14:31:30	   281 Query	UPDATE book_formats SET format = 'program' WHERE id = 109
+240626 14:31:56	   281 Query	SELECT books.id, books.title, authors.name AS author_name FROM books JOIN authors ON books.author_id = authors.id
+240626 14:33:57	   281 Query	SELECT books.title, AVG(reviews.rating) AS average_rating FROM books JOIN reviews ON books.id = reviews.book_id GROUP BY books.id ORDER BY average_rating DESC LIMIT 5
+240626 14:35:58	   281 Query	SELECT users.username, COUNT(reviews.id) AS review_count FROM users JOIN reviews ON users.id = reviews.user_id GROUP BY users.id
+240626 14:37:29	   281 Quit	
